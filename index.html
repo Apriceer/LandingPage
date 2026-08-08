@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>welcome back, master</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ---- token system ---- */
+    --sky-top:      #1c2b4a;   /* deep indigo dusk */
+    --sky-mid:      #7a3b3f;   /* dusky plum */
+    --sky-horizon:  #e08a3e;   /* burnt orange */
+    --sun-core:     #ffd98a;
+    --sun-edge:     #f2793c;
+    --wave-back:    #2a4566;
+    --wave-mid:     #1f3454;
+    --wave-front:   #101d33;
+    --foam:         #f5ead9;
+    --seal-red:     #a3402f;
+    --seal-ink:     #f5ead9;
+    --ink:          #f5ead9;
+    --ink-dim:      rgba(245,234,217,0.72);
+
+    --font-display: 'Shippori Mincho', serif;
+    --font-body:    'Zen Kaku Gothic New', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{
+    height:100%;
+    overflow:hidden;
+    background:var(--sky-top);
+    font-family:var(--font-body);
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .stage{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+  }
+
+  /* ---------------- SKY ---------------- */
+  .sky{
+    position:absolute; inset:0;
+    background:linear-gradient(
+      to bottom,
+      var(--sky-top) 0%,
+      var(--sky-mid) 55%,
+      var(--sky-horizon) 100%
+    );
+  }
+
+  .sun{
+    position:absolute;
+    top:16%;
+    left:50%;
+    width:min(34vw, 320px);
+    height:min(34vw, 320px);
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 45%, var(--sun-core) 0%, var(--sun-edge) 55%, rgba(242,121,60,0) 78%);
+    filter:blur(0.5px);
+    opacity:0;
+    animation:sunrise 2.4s ease-out 0.2s forwards;
+  }
+
+  @keyframes sunrise{
+    from{ opacity:0; transform:translateX(-50%) translateY(30px) scale(0.9); }
+    to  { opacity:0.9; transform:translateX(-50%) translateY(0) scale(1); }
+  }
+
+  /* ---------------- SEAGULLS ---------------- */
+  .gulls{ position:absolute; inset:0; pointer-events:none; }
+
+  .gull{
+    position:absolute;
+    width:46px; height:16px;
+    opacity:0;
+    animation-fill-mode:forwards;
+  }
+  .gull svg{ width:100%; height:100%; display:block; }
+  .gull path{
+    fill:none;
+    stroke:var(--ink-dim);
+    stroke-width:2.4;
+    stroke-linecap:round;
+  }
+
+  .gull--1{ top:22%; left:-8%; animation:flyRight 26s linear 3s infinite; }
+  .gull--2{ top:30%; left:-8%; animation:flyRight 32s linear 6.5s infinite; width:34px; height:12px; }
+  .gull--3{ top:16%; right:-8%; animation:flyLeft 30s linear 4.5s infinite; }
+  .gull--4{ top:26%; right:-8%; animation:flyLeft 22s linear 9s infinite; width:30px; height:11px; }
+
+  @keyframes flyRight{
+    0%   { opacity:0; transform:translate(0,0); }
+    6%   { opacity:0.8; }
+    50%  { transform:translate(60vw,-3vh); }
+    94%  { opacity:0.8; }
+    100% { opacity:0; transform:translate(116vw,4vh); }
+  }
+  @keyframes flyLeft{
+    0%   { opacity:0; transform:translate(0,0) scaleX(-1); }
+    6%   { opacity:0.8; }
+    50%  { transform:translate(-60vw,-2vh) scaleX(-1); }
+    94%  { opacity:0.8; }
+    100% { opacity:0; transform:translate(-116vw,3vh) scaleX(-1); }
+  }
+
+  /* ---------------- WAVES ---------------- */
+  .waves{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    width:100%;
+    height:58vh;
+  }
+
+  .wave-layer{
+    position:absolute;
+    left:0; bottom:0;
+    width:100%;
+    height:100%;
+    transform:translateY(115%);
+    opacity:0;
+  }
+
+  .wave-layer svg{ width:100%; height:100%; display:block; }
+
+  .wave-back  { animation:waveUp 1.3s cubic-bezier(.2,1.1,.3,1) 0.15s forwards; }
+  .wave-mid   { animation:waveUp 1.3s cubic-bezier(.2,1.1,.3,1) 0.40s forwards; }
+  .wave-front { animation:waveUp 1.5s cubic-bezier(.16,1.2,.3,1) 0.65s forwards; }
+
+  @keyframes waveUp{
+    0%   { transform:translateY(115%); opacity:0; }
+    60%  { opacity:1; }
+    100% { transform:translateY(0%); opacity:1; }
+  }
+
+  /* ---------------- CONTENT ---------------- */
+  .content{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:0 6vw;
+    text-align:center;
+    pointer-events:none;
+  }
+
+  .greeting{
+    color:var(--ink);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(2.1rem, 6vw, 4.2rem);
+    letter-spacing:0.02em;
+    text-shadow:0 4px 24px rgba(0,0,0,0.35);
+    opacity:0;
+    transform:translateY(24px) scale(0.96);
+    animation:riseIn 0.9s cubic-bezier(.2,1.4,.3,1) 1.75s forwards;
+  }
+
+  .subline{
+    margin-top:0.9rem;
+    color:var(--ink-dim);
+    font-family:var(--font-body);
+    font-weight:400;
+    font-size:clamp(0.85rem, 1.6vw, 1.05rem);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    opacity:0;
+    transform:translateY(16px);
+    animation:riseIn 0.8s cubic-bezier(.2,1.4,.3,1) 2.05s forwards;
+  }
+
+  @keyframes riseIn{
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  /* ---------------- SEAL BUTTONS ---------------- */
+  .seals{
+    pointer-events:auto;
+    margin-top:clamp(2rem, 5vh, 3.4rem);
+    display:flex;
+    flex-wrap:wrap;
+    gap:clamp(1rem, 2.6vw, 2.1rem);
+    justify-content:center;
+  }
+
+  .seal{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.55rem;
+    opacity:0;
+    transform:translateY(18px) scale(0.7);
+    animation:sealPop 0.6s cubic-bezier(.2,1.6,.35,1) forwards;
+  }
+  .seal:nth-child(1){ animation-delay:2.35s; }
+  .seal:nth-child(2){ animation-delay:2.47s; }
+  .seal:nth-child(3){ animation-delay:2.59s; }
+  .seal:nth-child(4){ animation-delay:2.71s; }
+
+  @keyframes sealPop{
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .seal-mark{
+    width:clamp(58px, 9vw, 78px);
+    height:clamp(58px, 9vw, 78px);
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255,255,255,0.18), rgba(255,255,255,0) 45%),
+      var(--seal-red);
+    border:2px solid rgba(245,234,217,0.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--seal-ink);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(0.85rem, 1.6vw, 1.15rem);
+    letter-spacing:0.02em;
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.15);
+    transition:transform 0.35s cubic-bezier(.2,1.6,.35,1), box-shadow 0.35s ease;
+  }
+
+  .seal-label{
+    color:var(--ink-dim);
+    font-size:clamp(0.7rem, 1.3vw, 0.82rem);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    transition:color 0.25s ease;
+  }
+
+  .seal:hover .seal-mark,
+  .seal:focus-visible .seal-mark{
+    transform:translateY(-6px) rotate(-4deg);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(0,0,0,0.15);
+  }
+  .seal:hover .seal-label,
+  .seal:focus-visible .seal-label{ color:var(--ink); }
+
+  .seal:focus-visible .seal-mark{
+    outline:2px solid var(--foam);
+    outline-offset:3px;
+  }
+
+  /* ---------------- REDUCED MOTION ---------------- */
+  @media (prefers-reduced-motion: reduce){
+    .sun, .greeting, .subline, .seal, .wave-layer{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+    .gull{ animation:none !important; opacity:0 !important; }
+  }
+
+  @media (max-width:520px){
+    .seals{ gap:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="sky"></div>
+  <div class="sun"></div>
+
+  <div class="gulls">
+    <div class="gull gull--1"><svg viewBox="0 0 46 16"><path d="M2,10 Q12,-2 23,10 Q34,-2 44,10"/></svg></div>
+    <div class="gull gull--2"><svg viewBox="0 0 46 16"><path d="M2,10 Q12,-2 23,10 Q34,-2 44,10"/></svg></div>
+    <div class="gull gull--3"><svg viewBox="0 0 46 16"><path d="M2,10 Q12,-2 23,10 Q34,-2 44,10"/></svg></div>
+    <div class="gull gull--4"><svg viewBox="0 0 46 16"><path d="M2,10 Q12,-2 23,10 Q34,-2 44,10"/></svg></div>
+  </div>
+
+  <div class="content">
+    <div>
+      <h1 class="greeting">Welcome back, master</h1>
+      <p class="subline">the tide has been waiting for you</p>
+    </div>
+
+    <nav class="seals" aria-label="Quick links">
+      <a class="seal" href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">
+        <span class="seal-mark" aria-hidden="true">GPT</span>
+        <span class="seal-label">ChatGPT</span>
+      </a>
+      <a class="seal" href="https://bindingofisaac.fandom.com/" target="_blank" rel="noopener noreferrer">
+        <span class="seal-mark" aria-hidden="true">伊</span>
+        <span class="seal-label">Isaac Wiki</span>
+      </a>
+      <a class="seal" href="https://www.roblox.com" target="_blank" rel="noopener noreferrer">
+        <span class="seal-mark" aria-hidden="true">RBX</span>
+        <span class="seal-label">Roblox</span>
+      </a>
+      <a class="seal" href="https://claude.ai" target="_blank" rel="noopener noreferrer">
+        <span class="seal-mark" aria-hidden="true">爪</span>
+        <span class="seal-label">Claude</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="waves">
+    <!-- back ridge: gentle, most distant -->
+    <div class="wave-layer wave-back">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="none">
+        <path fill="var(--wave-back)" d="
+          M0,220
+          C 120,180 240,240 360,200
+          C 480,160 600,230 720,190
+          C 840,150 960,220 1080,180
+          C 1200,140 1320,210 1440,170
+          L1440,400 L0,400 Z" />
+      </svg>
+    </div>
+
+    <!-- mid ridge -->
+    <div class="wave-layer wave-mid">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="none">
+        <path fill="var(--wave-mid)" d="
+          M0,260
+          C 100,210 200,280 320,230
+          C 440,180 540,270 660,220
+          C 780,170 880,260 1000,215
+          C 1120,170 1240,250 1340,205
+          L1440,225 L1440,400 L0,400 Z" />
+      </svg>
+    </div>
+
+    <!-- front ridge: the great wave, clawed crest -->
+  </div>
+
+</div>
+
+</body>
+</html>
