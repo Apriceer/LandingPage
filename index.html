@@ -119,6 +119,8 @@
     left:0; right:0; bottom:0;
     width:100%;
     height:58vh;
+    z-index:1;
+    pointer-events:none;
   }
 
   .wave-layer{
@@ -146,6 +148,7 @@
     position:absolute;
     top:0; left:0; right:0;
     height:100%;
+    z-index:2;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -196,12 +199,20 @@
 
   .seal{
     display:flex;
-    flex-direction:column;
     align-items:center;
-    gap:0.55rem;
+    gap:0.6rem;
+    padding:0.7rem 1.3rem 0.7rem 0.7rem;
+    border-radius:999px;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,0.16), rgba(255,255,255,0) 50%),
+      var(--seal-red);
+    border:1.5px solid rgba(245,234,217,0.5);
+    box-shadow:0 8px 20px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.15);
+    cursor:pointer;
     opacity:0;
     transform:translateY(18px) scale(0.7);
     animation:sealPop 0.6s cubic-bezier(.2,1.6,.35,1) forwards;
+    transition:transform 0.2s cubic-bezier(.2,1.6,.35,1), box-shadow 0.25s ease, background-color 0.25s ease;
   }
   .seal:nth-child(1){ animation-delay:2.35s; }
   .seal:nth-child(2){ animation-delay:2.47s; }
@@ -213,48 +224,43 @@
   }
 
   .seal-mark{
-    width:clamp(58px, 9vw, 78px);
-    height:clamp(58px, 9vw, 78px);
+    flex-shrink:0;
+    width:clamp(42px, 6.5vw, 54px);
+    height:clamp(42px, 6.5vw, 54px);
     border-radius:50%;
-    background:
-      radial-gradient(circle at 32% 28%, rgba(255,255,255,0.18), rgba(255,255,255,0) 45%),
-      var(--seal-red);
-    border:2px solid rgba(245,234,217,0.55);
+    background:rgba(0,0,0,0.18);
     display:flex;
     align-items:center;
     justify-content:center;
     color:var(--seal-ink);
     font-family:var(--font-display);
     font-weight:700;
-    font-size:clamp(0.85rem, 1.6vw, 1.15rem);
+    font-size:clamp(0.72rem, 1.3vw, 0.95rem);
     letter-spacing:0.02em;
-    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.15);
-    transition:transform 0.35s cubic-bezier(.2,1.6,.35,1), box-shadow 0.35s ease;
   }
 
   .seal-label{
-    color:var(--ink-dim);
-    font-size:clamp(0.7rem, 1.3vw, 0.82rem);
-    letter-spacing:0.06em;
+    color:var(--seal-ink);
+    font-family:var(--font-body);
+    font-weight:500;
+    font-size:clamp(0.78rem, 1.4vw, 0.92rem);
+    letter-spacing:0.04em;
     text-transform:uppercase;
-    text-underline-offset:4px;
-    text-decoration:underline;
-    text-decoration-color:transparent;
-    transition:color 0.25s ease, text-decoration-color 0.25s ease;
+    white-space:nowrap;
   }
 
-  .seal:hover .seal-mark,
-  .seal:focus-visible .seal-mark{
-    transform:translateY(-6px) rotate(-4deg);
-    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(0,0,0,0.15);
-  }
-  .seal:hover .seal-label,
-  .seal:focus-visible .seal-label{
-    color:var(--ink);
-    text-decoration-color:var(--ink);
+  .seal:hover,
+  .seal:focus-visible{
+    transform:translateY(-5px);
+    box-shadow:0 14px 26px rgba(0,0,0,0.42), inset 0 0 0 1px rgba(0,0,0,0.15);
   }
 
-  .seal:focus-visible .seal-mark{
+  .seal:active{
+    transform:translateY(-1px) scale(0.97);
+    box-shadow:0 6px 14px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(0,0,0,0.15);
+  }
+
+  .seal:focus-visible{
     outline:2px solid var(--foam);
     outline-offset:3px;
   }
