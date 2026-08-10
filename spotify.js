@@ -1,0 +1,221 @@
+const clientId = "9a14dfc4a093402493d69ad154347ce2";
+const redirectUri = "https://apriceer.github.io/LandingPage/";
+
+const scopes = [
+    "user-read-currently-playing",
+    "user-read-playback-state"
+];
+
+
+// ================================
+// PKCE HELPERS
+// ================================
+
+function generateRandomString(length) {
+    const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    let result = "";
+
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+        );
+    }
+
+    return result;
+}
+
+
+async function generateCodeChallenge(verifier) {
+    const data = new TextEncoder().encode(verifier);
+
+    const digest = await crypto.subtle.digest(
+        "SHA-256",
+        data
+    );
+
+    return btoa(
+        String.fromCharCode(...new Uint8Array(digest))
+    )
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+}
+
+
+// ================================
+// LOGIN
+// ================================
+
+async function loginSpotify() {
+
+    const verifier = generateRandomString(64);
+
+    localStorage.setItem(
+        "spotify_code_verifier",
+        verifier
+    );
+
+    const challenge =
+        await generateCodeChallenge(verifier);
+
+    const params = new URLSearchParams({
+        client_id: clientId,
+        response_type: "code",
+        redirect_uri: redirectUri,
+        scope: scopes.join(" "),
+        code_challenge_method: "S256",
+        code_challenge: challenge
+    });
+
+    window.location.href =
+        "https://accounts.spotify.com/authorize?" +
+        params.toString();
+}
+
+
+// ================================
+// GET ACCESS TOKEN
+// ================================
+
+async function getAccessToken(code) {
+
+    const verifier =
+        localStorage.getItem("spotify_code_verifier");
+
+    const response = await fetch(
+        "https://accounts.spotify.com/api/token",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+            },
+
+            body: new URLSearchParams({
+                client_id: clientId,
+                grant_type: "authorization_code",
+                code: code,
+                redirect_uri: redirectUri,
+                code_verifier: verifier
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    if (data.access_token) {
+
+        localStorage.setItem(
+            "spotify_access_token",
+            data.access_token
+        );
+
+        if (data.refresh_token) {
+            localStorage.setItem(
+                "spotify_refresh_token",
+                data.refresh_token
+            );
+        }
+
+        return data.access_token;
+    }
+
+    console.error("Spotify token error:", data);
+
+    return null;
+}
+
+
+// ================================
+// GET CURRENTLY PLAYING
+// ================================
+
+async function getCurrentlyPlaying() {
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (!token) {
+        console.log("Not logged into Spotify.");
+        return null;
+    }
+
+    const response = await fetch(
+        "https://api.spotify.com/v1/me/player",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    // 204 = nothing is currently playing
+    if (response.status === 204) {
+        console.log("Nothing is currently playing.");
+        return null;
+    }
+
+    if (!response.ok) {
+        console.error(
+            "Spotify API error:",
+            response.status
+        );
+
+        return null;
+    }
+
+    const data = await response.json();
+
+    console.log("CURRENT SPOTIFY JSON:");
+    console.log(data);
+
+    return data;
+}
+
+
+// ================================
+// HANDLE LOGIN CALLBACK
+// ================================
+
+async function initializeSpotify() {
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const code = params.get("code");
+
+    if (code) {
+
+        const token =
+            await getAccessToken(code);
+
+        // Remove ?code=... from the URL
+        window.history.replaceState(
+            {},
+            document.title,
+            redirectUri
+        );
+
+        if (token) {
+            console.log("Spotify login successful!");
+
+            await getCurrentlyPlaying();
+        }
+
+        return;
+    }
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (token) {
+        await getCurrentlyPlaying();
+    }
+}
+
+
+// Start everything
+initializeSpotify();
