@@ -84,7 +84,6 @@
     transform:translateX(-50%);
     border-radius:50%;
     z-index: 0;
-    /* transition allows them to move smoothly every second */
     transition: top 1s linear; 
   }
 
@@ -94,18 +93,17 @@
     background:radial-gradient(circle at 50% 45%, var(--sun-core) 0%, var(--sun-edge) 55%, transparent 78%);
     filter:blur(0.5px);
     opacity: 0.9;
-    top: 100vh; /* Start below horizon */
+    top: 100vh; 
   }
 
   .moon {
     width:min(18vw, 160px);
     height:min(18vw, 160px);
-    /* Creates the crescent shape */
     box-shadow: inset -15px 15px 0 0 #e2e8f0;
     filter: drop-shadow(0 0 15px rgba(226, 232, 240, 0.3));
     background: transparent;
     opacity: 0.9;
-    top: 100vh; /* Start below horizon */
+    top: 100vh; 
   }
 
   /* ---------------- SEAGULLS ---------------- */
@@ -117,7 +115,10 @@
     opacity:0;
     animation-fill-mode:forwards;
   }
-  .gull svg { width:100%; height:100%; display:block; }
+  
+  .gull svg { 
+    width:100%; height:100%; display:block; 
+  }
   .gull path {
     fill:none;
     stroke:var(--ink-dim);
@@ -278,7 +279,6 @@
     pointer-events: none;
   }
 
-  /* Weather & Time - Removed Box Styling */
   .weather-time-widget {
     padding: 12px 18px;
     color: var(--ink);
@@ -288,13 +288,11 @@
     gap: 4px;
     opacity: 0;
     animation: sealPop 0.6s cubic-bezier(.2,1.6,.35,1) 1s forwards;
-    /* Added text shadow so it remains legible against light/dark sky */
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
   .sys-time { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; letter-spacing: 0.05em; }
   .weather-data { font-size: 0.95rem; color: var(--ink-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
 
-  /* Spotify Iframe Wrapper */
   .spotify-wrap {
     pointer-events: auto;
     opacity: 0;
@@ -450,40 +448,29 @@
   function updateClockAndSky() {
     const now = new Date();
     
-    // Update Digital Clock
     const timeString = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     document.getElementById('time-display').innerText = timeString;
 
-    // Mathematical Sky Interpolation & Positioning
     let nightPct, sunY, moonY;
 
     if (!manualOverride) {
-      // Time in decimal hours (0 to 24)
       const t = now.getHours() + (now.getMinutes() / 60) + (now.getSeconds() / 3600);
-      
-      // Calculate background darkness percentage using a Cosine wave (peaks at 100% at midnight, 0% at noon)
       nightPct = ((Math.cos((t / 24) * Math.PI * 2) + 1) / 2) * 100;
       
-      // Map Sun position on a Sine wave (Day: 6 to 18). Highest point is 1 at noon.
       const sunProgress = (t - 6) / 12; 
       sunY = Math.sin(sunProgress * Math.PI); 
 
-      // Map Moon position on a Sine wave (Night: 18 to 6). Highest point is 1 at midnight.
-      const moonT = t < 6 ? t + 24 : t; // Shift time to continuous 18-30 scale
+      const moonT = t < 6 ? t + 24 : t;
       const moonProgress = (moonT - 18) / 12;
       moonY = Math.sin(moonProgress * Math.PI);
-
     } else {
-      // Fixed values if Konami override is engaged
       nightPct = manualIsNight ? 100 : 0;
       sunY = manualIsNight ? -1 : 1; 
       moonY = manualIsNight ? 1 : -1;
     }
 
-    // Apply color mix percent to root variables
     document.documentElement.style.setProperty('--night-pct', `${nightPct}%`);
 
-    // Apply Y coordinates. (At Math.sin = 1, it's 15vh. At Math.sin = -1, it's well below screen 185vh)
     const MAX_HEIGHT = 15;
     const MIN_HEIGHT = 100;
     const sunTop = MIN_HEIGHT - (sunY * (MIN_HEIGHT - MAX_HEIGHT));
@@ -494,9 +481,9 @@
   }
   
   setInterval(updateClockAndSky, 1000);
-  updateClockAndSky(); // Init immediately
+  updateClockAndSky();
 
-  // ================= 2. WEATHER API (34654) =================
+  // ================= 2. WEATHER API =================
   async function fetchWeather() {
     try {
       const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=28.2514&longitude=-82.6320&current_weather=true&temperature_unit=fahrenheit');
@@ -510,7 +497,7 @@
   fetchWeather();
   setInterval(fetchWeather, 600000);
 
-  // ================= 3. KONAMI CODE (Manual Sun/Moon) =================
+  // ================= 3. KONAMI CODE =================
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
   let konamiIndex = 0;
 
@@ -521,45 +508,14 @@
         manualOverride = true;
         manualIsNight = !manualIsNight;
         updateClockAndSky();
-        konamiIndex = 0; // reset
+        konamiIndex = 0;
       }
     } else {
-      konamiIndex = 0; // reset on wrong key
+      konamiIndex = 0; 
     }
   });
 
-  // ================= 4. SEAGULLS RUN AWAY (Playback Rate Increase) =================
-  const gulls = document.querySelectorAll('.gull');
-  const DODGE_DISTANCE = 250; // pixels to trigger running away
-
-  document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    gulls.forEach(gull => {
-      const rect = gull.getBoundingClientRect();
-      const gullCenterX = rect.left + rect.width / 2;
-      const gullCenterY = rect.top + rect.height / 2;
-
-      const distX = mouseX - gullCenterX;
-      const distY = mouseY - gullCenterY;
-      const distance = Math.sqrt(distX * distX + distY * distY);
-
-      // Check if getAnimations is supported
-      if (typeof gull.getAnimations === 'function') {
-        const animations = gull.getAnimations();
-        if (distance < DODGE_DISTANCE) {
-          // Speed up 5x when mouse gets close
-          animations.forEach(anim => anim.playbackRate = 5); 
-        } else {
-          // Return to normal speed
-          animations.forEach(anim => anim.playbackRate = 1); 
-        }
-      }
-    });
-  });
-
-  // ================= 5. REMINDERS (LOCALSTORAGE) =================
+  // ================= 4. REMINDERS (LOCALSTORAGE) =================
   const remindersBtn = document.getElementById('reminders-btn');
   const remindersPanel = document.getElementById('reminders-panel');
   const reminderForm = document.getElementById('reminder-form');
@@ -590,7 +546,6 @@
     localStorage.setItem('myReminders', JSON.stringify(reminders));
   }
 
-  // Toggle Panel
   remindersBtn.addEventListener('click', () => {
     remindersPanel.classList.toggle('open');
     if(remindersPanel.classList.contains('open')) {
@@ -598,7 +553,6 @@
     }
   });
 
-  // Add Item
   reminderForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const task = reminderInput.value.trim();
