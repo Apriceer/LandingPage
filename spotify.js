@@ -80,9 +80,15 @@ async function loginSpotify() {
 // ================================
 
 async function getAccessToken(code) {
+    const verifier = localStorage.getItem("spotify_code_verifier");
 
-    const verifier =
-        localStorage.getItem("spotify_code_verifier");
+    console.log("Authorization code:", code);
+    console.log("Code verifier exists:", !!verifier);
+
+    if (!verifier) {
+        console.error("ERROR: No code verifier found in localStorage.");
+        return null;
+    }
 
     const response = await fetch(
         "https://accounts.spotify.com/api/token",
@@ -90,8 +96,7 @@ async function getAccessToken(code) {
             method: "POST",
 
             headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded"
+                "Content-Type": "application/x-www-form-urlencoded"
             },
 
             body: new URLSearchParams({
@@ -106,26 +111,30 @@ async function getAccessToken(code) {
 
     const data = await response.json();
 
-    if (data.access_token) {
+    console.log("Spotify token response:", data);
 
-        localStorage.setItem(
-            "spotify_access_token",
-            data.access_token
+    if (!response.ok) {
+        console.error(
+            "Token request failed:",
+            response.status,
+            data
         );
-
-        if (data.refresh_token) {
-            localStorage.setItem(
-                "spotify_refresh_token",
-                data.refresh_token
-            );
-        }
-
-        return data.access_token;
+        return null;
     }
 
-    console.error("Spotify token error:", data);
+    localStorage.setItem(
+        "spotify_access_token",
+        data.access_token
+    );
 
-    return null;
+    if (data.refresh_token) {
+        localStorage.setItem(
+            "spotify_refresh_token",
+            data.refresh_token
+        );
+    }
+
+    return data.access_token;
 }
 
 
@@ -182,15 +191,31 @@ async function getCurrentlyPlaying() {
 
 async function initializeSpotify() {
 
-    const params =
-        new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
 
     const code = params.get("code");
+    const error = params.get("error");
 
+    // Spotify rejected authorization
+    if (error) {
+        console.error("Spotify authorization error:", error);
+        return;
+    }
+
+    // Spotify sent us an authorization code
     if (code) {
 
-        const token =
-            await getAccessToken(code);
+        console.log("Authorization code received!");
+
+        const token = await getAccessToken(code);
+
+        if (!token) {
+            console.error("Failed to get Spotify access token.");
+            return;
+        }
+
+        console.log("Spotify login successful!");
+        console.log("Access token received.");
 
         // Remove ?code=... from the URL
         window.history.replaceState(
@@ -199,20 +224,28 @@ async function initializeSpotify() {
             redirectUri
         );
 
-        if (token) {
-            console.log("Spotify login successful!");
-
+        const currentlyPlaying =
             await getCurrentlyPlaying();
-        }
+
+        console.log(
+            "Currently playing:",
+            currentlyPlaying
+        );
 
         return;
     }
 
+    // No code → check whether we already have a token
     const token =
         localStorage.getItem("spotify_access_token");
 
     if (token) {
+        console.log("Existing Spotify token found.");
+
         await getCurrentlyPlaying();
+
+    } else {
+        console.log("Not logged into Spotify yet.");
     }
 }
 
