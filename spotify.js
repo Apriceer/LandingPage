@@ -3,7 +3,8 @@ const redirectUri = "https://apriceer.github.io/LandingPage/";
 
 const scopes = [
     "user-read-currently-playing",
-    "user-read-playback-state"
+    "user-read-playback-state",
+    "user-modify-playback-state"
 ];
 
 
@@ -284,3 +285,42 @@ async function updateSong() {
 updateSong();
 
 setInterval(updateSong, 5000);
+
+// ================================
+// FUNCTIONALITY
+// ================================
+
+async function skipSong() {
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (!token) {
+        console.log("Not logged into Spotify.");
+        return;
+    }
+
+    const response = await fetch(
+        "https://api.spotify.com/v1/me/player/next",
+        {
+            method: "POST",
+
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        console.error(
+            "Could not skip song:",
+            response.status
+        );
+
+        return;
+    }
+
+    // Give Spotify a moment to change tracks,
+    // then update the UI.
+    setTimeout(updateSong, 500);
+}
