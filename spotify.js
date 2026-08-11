@@ -567,7 +567,7 @@ async function openSpotify() {
 
     // Start/resume playback
     const response = await fetch(
-        "https://api.spotify.com/v1/me/player",
+        "https://api.spotify.com/v1/me/player/play",
         {
             method: "PUT",
 
