@@ -551,6 +551,114 @@ async function togglePlay() {
     setTimeout(updateSong, 500);
 }
 
+const progressContainer =
+    document.getElementById(
+        "spotify-progress-container"
+    );
+
+let isDraggingProgress = false;
+
+progressContainer.addEventListener(
+    "pointerdown",
+    (event) => {
+
+        isDraggingProgress = true;
+
+        progressContainer.setPointerCapture(
+            event.pointerId
+        );
+
+        seekFromMouse(event);
+    }
+);
+
+progressContainer.addEventListener(
+    "pointermove",
+    (event) => {
+
+        if (!isDraggingProgress) return;
+
+        seekFromMouse(event);
+    }
+);
+
+progressContainer.addEventListener(
+    "pointerup",
+    async (event) => {
+
+        if (!isDraggingProgress) return;
+
+        isDraggingProgress = false;
+
+        const position =
+            getSeekPosition(event);
+
+        await seekSpotify(position);
+    }
+);
+
+function getSeekPosition(event) {
+
+    const rect =
+        progressContainer.getBoundingClientRect();
+
+    let percentage =
+        (event.clientX - rect.left) /
+        rect.width;
+
+    percentage =
+        Math.max(0, Math.min(1, percentage));
+
+    return percentage * currentDuration;
+}
+
+function seekFromMouse(event) {
+
+    if (!currentDuration) return;
+
+    const position =
+        getSeekPosition(event);
+
+    currentProgress = position;
+
+    updateProgressDisplay();
+}
+
+async function seekSpotify(position) {
+
+    const token =
+        localStorage.getItem(
+            "spotify_access_token"
+        );
+
+    if (!token) return;
+
+    const response = await fetch(
+        `https://api.spotify.com/v1/me/player/seek?position_ms=${Math.floor(position)}`,
+        {
+            method: "PUT",
+
+            headers: {
+                Authorization:
+                    `Bearer ${token}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+
+        console.error(
+            "Could not seek:",
+            response.status
+        );
+
+        return;
+    }
+
+    // Keep our local progress synchronized
+    currentProgress = position;
+}
+
 // ================================
 // MISCELLANEOUS
 // ================================
