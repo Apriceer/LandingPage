@@ -565,15 +565,36 @@ async function openSpotify() {
         return;
     }
 
-    await fetch(
+    // Start/resume playback
+    const response = await fetch(
         "https://api.spotify.com/v1/me/player/play",
         {
             method: "PUT",
+
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }
     );
 
-    setTimeout(updateSong, 500);
+    if (!response.ok) {
+        console.error(
+            "Could not start Spotify playback:",
+            response.status
+        );
+
+        // Open Spotify anyway
+        window.open(
+            "https://open.spotify.com/",
+            "_blank"
+        );
+
+        return;
+    }
+
+    // Open Spotify's web player
+    window.open(
+        "https://open.spotify.com/",
+        "_blank"
+    );
 }
