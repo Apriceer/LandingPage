@@ -478,10 +478,6 @@
       letter-spacing: 0.05em;
     }
 
-
-
-
-
     .spotify-player {
       width: min(500px, 90vw);
       min-height: 90px;
@@ -682,11 +678,49 @@
       flex-shrink: 0;
     }
 
-    .spotify-control {
-      width: 36px;
-      height: 36px;
+    .spotify-play-pause {
+      width: 48px;
+      height: 48px;
 
-      padding: 7px;
+      padding: 6px;
+
+      border: none;
+      background: transparent;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .spotify-play-pause:hover {
+      background: #252423;
+      transform: scale(1.08);
+    }
+
+    .spotify-play-pause:active {
+      transform: scale(0.92);
+    }
+
+    .spotify-play-pause img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+    }
+
+    .spotify-control {
+      width: 34px;
+      height: 34px;
+
+      padding: 6px;
 
       border: none;
       background: transparent;
@@ -947,7 +981,7 @@
                 <img src="SpotifyIcons/backward-skip.png" alt="">
               </button>
 
-              <button type="button" class="spotify-control" onclick="togglePlay()" aria-label="Play or pause">
+              <button type="button" class="spotify-play-pause" onclick="togglePlay()" aria-label="Play or pause">
 
                 <img id="play-pause-icon" src="SpotifyIcons/play-button.png" alt="">
               </button>
