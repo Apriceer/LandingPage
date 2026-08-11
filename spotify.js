@@ -255,6 +255,10 @@ initializeSpotify();
 // UPDATE SONG
 // ================================
 
+let currentProgress = 0;
+let currentDuration = 0;
+let isPlaying = false;
+
 async function updateSong() {
 
     const data = await getCurrentlyPlaying();
@@ -268,20 +272,9 @@ async function updateSong() {
     const albumArt =
         document.getElementById("album-art");
 
-    const progressBar =
-        document.getElementById("spotify-progress-bar");
-
-    const currentTime =
-        document.getElementById("spotify-current-time");
-
-    const duration =
-        document.getElementById("spotify-duration");
-
     const playPauseIcon =
         document.getElementById("play-pause-icon");
 
-
-    // Nothing is playing
     if (!data || !data.item) {
 
         songName.textContent = "Nothing playing";
@@ -289,14 +282,14 @@ async function updateSong() {
 
         albumArt.src = "";
 
-        progressBar.style.width = "0%";
+        currentProgress = 0;
+        currentDuration = 0;
+        isPlaying = false;
 
-        currentTime.textContent = "0:00";
-        duration.textContent = "0:00";
+        updateProgressDisplay();
 
         return;
     }
-
 
     // Song information
     songName.textContent =
@@ -311,46 +304,88 @@ async function updateSong() {
         data.item.album.images[0].url;
 
 
-    // Progress
-    const progress =
+    // Sync progress with Spotify
+    currentProgress =
         data.progress_ms || 0;
 
-    const total =
-        data.item.duration_ms;
+    currentDuration =
+        data.item.duration_ms || 0;
 
-    const percentage =
-        (progress / total) * 100;
-
-    progressBar.style.width =
-        `${percentage}%`;
+    isPlaying =
+        data.is_playing;
 
 
-    // Time
-    currentTime.textContent =
-        formatTime(progress);
-
-    duration.textContent =
-        formatTime(total);
-
-
-    // Play / pause icon
-    if (data.is_playing) {
+    // Change play/pause icon
+    if (isPlaying) {
 
         playPauseIcon.src =
-            "SpotifyIcons/pause-button.png";
+            "YOUR_PAUSE_ICON.png";
 
     } else {
 
         playPauseIcon.src =
-            "SpotifyIcons/play-button.png";
+            "YOUR_PLAY_ICON.png";
     }
+
+
+    updateProgressDisplay();
 }
+
+updateSong()
 
 setInterval(updateSong,5000)
 
 // ================================
 // FORMATTING
 // ================================
+
+function updateProgressDisplay() {
+
+    const progressBar =
+        document.getElementById("spotify-progress-bar");
+
+    const currentTime =
+        document.getElementById("spotify-current-time");
+
+    const duration =
+        document.getElementById("spotify-duration");
+
+
+    if (currentDuration <= 0) {
+
+        progressBar.style.width = "0%";
+
+        currentTime.textContent = "0:00";
+        duration.textContent = "0:00";
+
+        return;
+    }
+
+
+    const percentage =
+        (currentProgress / currentDuration) * 100;
+
+    progressBar.style.width =
+        `${Math.min(percentage, 100)}%`;
+
+
+    currentTime.textContent =
+        formatTime(currentProgress);
+
+    duration.textContent =
+        formatTime(currentDuration);
+}
+
+setInterval(() => {
+
+    if (isPlaying && currentProgress < currentDuration) {
+
+        currentProgress += 100;
+
+        updateProgressDisplay();
+    }
+
+}, 100);
 
 function formatTime(milliseconds) {
 
