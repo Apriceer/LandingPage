@@ -179,8 +179,8 @@ async function getCurrentlyPlaying() {
 
     const data = await response.json();
 
-    console.log("CURRENT SPOTIFY JSON:");
-    console.log(data);
+    // console.log("CURRENT SPOTIFY JSON:");
+    // console.log(data);
 
     return data;
 }
