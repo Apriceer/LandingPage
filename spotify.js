@@ -184,6 +184,35 @@ async function getCurrentlyPlaying() {
     return data;
 }
 
+// ================================
+// UPDATE SONG
+// ================================
+
+async function updateSong() {
+
+    const data = await getCurrentlyPlaying();
+
+    if (!data || !data.item) {
+        document.getElementById("song-name").textContent =
+            "Nothing playing";
+
+        document.getElementById("artist-name").textContent = "";
+
+        return;
+    }
+
+    document.getElementById("song-name").textContent =
+        data.item.name;
+
+    document.getElementById("artist-name").textContent =
+        data.item.artists[0].name;
+
+    document.getElementById("album-art").src =
+        data.item.album.images[0].url;
+}
+
+setInterval(updateSong, 5000);
+
 
 // ================================
 // HANDLE LOGIN CALLBACK
