@@ -546,4 +546,13 @@ async function togglePlay() {
     setTimeout(updateSong, 200);
 }
 
+// ================================
+// MISCELLANEOUS
+// ================================
 
+function openSpotify() {
+    window.open(
+        "https://open.spotify.com/",
+        "_blank"
+    );
+}
