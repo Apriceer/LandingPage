@@ -138,6 +138,70 @@ async function getAccessToken(code) {
     return data.access_token;
 }
 
+// ================================
+// REFRESH TOKEN
+// ================================
+
+async function refreshAccessToken() {
+
+    const refreshToken =
+        localStorage.getItem("spotify_refresh_token");
+
+    if (!refreshToken) {
+        console.log("No refresh token available.");
+        return false;
+    }
+
+    const response = await fetch(
+        "https://accounts.spotify.com/api/token",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+            },
+
+            body: new URLSearchParams({
+                grant_type: "refresh_token",
+                refresh_token: refreshToken,
+                client_id: clientId
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+
+        console.error(
+            "Token refresh failed:",
+            data
+        );
+
+        return false;
+    }
+
+    localStorage.setItem(
+        "spotify_access_token",
+        data.access_token
+    );
+
+    // Spotify may give you a new refresh token.
+    // If it doesn't, keep the old one.
+    if (data.refresh_token) {
+
+        localStorage.setItem(
+            "spotify_refresh_token",
+            data.refresh_token
+        );
+    }
+
+    console.log("Spotify access token refreshed.");
+
+    return true;
+}
+
 
 // ================================
 // GET CURRENTLY PLAYING
@@ -145,44 +209,68 @@ async function getAccessToken(code) {
 
 async function getCurrentlyPlaying() {
 
-    const token =
+    let token =
         localStorage.getItem("spotify_access_token");
 
     if (!token) {
-        console.log("Not logged into Spotify.");
         return null;
     }
 
-    const response = await fetch(
+    let response = await fetch(
         "https://api.spotify.com/v1/me/player",
         {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization:
+                    `Bearer ${token}`
             }
         }
     );
 
-    // 204 = nothing is currently playing
-    if (response.status === 204) {
-        console.log("Nothing is currently playing.");
-        return null;
+
+    // Token expired
+    if (response.status === 401) {
+
+        console.log(
+            "Access token expired. Refreshing..."
+        );
+
+        const refreshed =
+            await refreshAccessToken();
+
+        if (!refreshed) {
+            return null;
+        }
+
+        // Get the new token
+        token =
+            localStorage.getItem(
+                "spotify_access_token"
+            );
+
+        // Try the request again
+        response = await fetch(
+            "https://api.spotify.com/v1/me/player",
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
     }
+
 
     if (!response.ok) {
         console.error(
-            "Spotify API error:",
+            "Spotify playback request failed:",
             response.status
         );
 
         return null;
     }
 
-    const data = await response.json();
 
-    // console.log("CURRENT SPOTIFY JSON:");
-    // console.log(data);
-
-    return data;
+    return await response.json();
 }
 
 // ================================
