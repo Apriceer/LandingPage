@@ -217,7 +217,7 @@ async function initializeSpotify() {
         console.log("Spotify login successful!");
         console.log("Access token received.");
 
-        //updateLoginButton();
+        updateLoginButton();
 
         // Remove ?code=... from the URL
         window.history.replaceState(
