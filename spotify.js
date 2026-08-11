@@ -319,12 +319,12 @@ async function updateSong() {
     if (isPlaying) {
 
         playPauseIcon.src =
-            "SpotifyIcons\pause-button.png";
+            "SpotifyIcons/pause-button.png";
 
     } else {
 
         playPauseIcon.src =
-            "SpotifyIcons\play-button.png";
+            "SpotifyIcons/play-button.png";
     }
 
 
