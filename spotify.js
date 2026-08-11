@@ -217,7 +217,7 @@ async function initializeSpotify() {
         console.log("Spotify login successful!");
         console.log("Access token received.");
 
-        updateLoginButton();
+        //updateLoginButton();
 
         // Remove ?code=... from the URL
         window.history.replaceState(
@@ -244,7 +244,7 @@ async function initializeSpotify() {
     if (token) {
         console.log("Existing Spotify token found.");
         await getCurrentlyPlaying();
-        updateLoginButton();
+        //updateLoginButton();
 
     } else {
         console.log("Not logged into Spotify yet.");
