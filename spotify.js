@@ -284,7 +284,7 @@ async function updateSong() {
     spotifyOpenButton.style.display = "none";
 
 
-    
+
     const songName =
         document.getElementById("song-name");
 
@@ -555,9 +555,25 @@ async function togglePlay() {
 // MISCELLANEOUS
 // ================================
 
-function openSpotify() {
-    window.open(
-        "https://open.spotify.com/",
-        "_blank"
+async function openSpotify() {
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (!token) {
+        loginSpotify();
+        return;
+    }
+
+    await fetch(
+        "https://api.spotify.com/v1/me/player/play",
+        {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
     );
+
+    setTimeout(updateSong, 500);
 }
