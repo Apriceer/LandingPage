@@ -217,6 +217,8 @@ async function initializeSpotify() {
         console.log("Spotify login successful!");
         console.log("Access token received.");
 
+        updateLoginButton();
+
         // Remove ?code=... from the URL
         window.history.replaceState(
             {},
@@ -338,6 +340,25 @@ setInterval(updateSong,5000)
 // ================================
 // FORMATTING
 // ================================
+
+function updateLoginButton() {
+
+    const button =
+        document.getElementById("spotify-login-button");
+
+    if (!button) return;
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (token) {
+        button.style.display = "none";
+    } else {
+        button.style.display = "";
+    }
+}
+
+updateLoginButton();
 
 function updateProgressDisplay() {
 
