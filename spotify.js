@@ -259,32 +259,114 @@ async function updateSong() {
 
     const data = await getCurrentlyPlaying();
 
-    console.log("updateSong is running");
+    const songName =
+        document.getElementById("song-name");
 
+    const artistName =
+        document.getElementById("artist-name");
+
+    const albumArt =
+        document.getElementById("album-art");
+
+    const progressBar =
+        document.getElementById("spotify-progress-bar");
+
+    const currentTime =
+        document.getElementById("spotify-current-time");
+
+    const duration =
+        document.getElementById("spotify-duration");
+
+    const playPauseIcon =
+        document.getElementById("play-pause-icon");
+
+
+    // Nothing is playing
     if (!data || !data.item) {
-        document.getElementById("song-name").textContent =
-            "Nothing playing";
 
-        document.getElementById("artist-name").textContent = "";
+        songName.textContent = "Nothing playing";
+        artistName.textContent = "";
+
+        albumArt.src = "";
+
+        progressBar.style.width = "0%";
+
+        currentTime.textContent = "0:00";
+        duration.textContent = "0:00";
 
         return;
     }
 
-    console.log("updateSong is running with data");
 
-    document.getElementById("song-name").textContent =
+    // Song information
+    songName.textContent =
         data.item.name;
 
-    document.getElementById("artist-name").textContent =
-        data.item.artists[0].name;
+    artistName.textContent =
+        data.item.artists
+            .map(artist => artist.name)
+            .join(", ");
 
-    document.getElementById("album-art").src =
+    albumArt.src =
         data.item.album.images[0].url;
+
+
+    // Progress
+    const progress =
+        data.progress_ms || 0;
+
+    const total =
+        data.item.duration_ms;
+
+    const percentage =
+        (progress / total) * 100;
+
+    progressBar.style.width =
+        `${percentage}%`;
+
+
+    // Time
+    currentTime.textContent =
+        formatTime(progress);
+
+    duration.textContent =
+        formatTime(total);
+
+
+    // Play / pause icon
+    if (data.is_playing) {
+
+        playPauseIcon.src =
+            "YOUR_PAUSE_ICON.png";
+
+    } else {
+
+        playPauseIcon.src =
+            "YOUR_PLAY_ICON.png";
+    }
 }
 
-updateSong();
+setInterval(updateSong,5000)
 
-setInterval(updateSong, 5000);
+// ================================
+// FORMATTING
+// ================================
+
+function formatTime(milliseconds) {
+
+    const totalSeconds =
+        Math.floor(milliseconds / 1000);
+
+    const minutes =
+        Math.floor(totalSeconds / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+    return `${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+}
 
 // ================================
 // FUNCTIONALITY
@@ -324,3 +406,73 @@ async function skipSong() {
     // then update the UI.
     setTimeout(updateSong, 500);
 }
+
+async function previousSong() {
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (!token) return;
+
+    const response = await fetch(
+        "https://api.spotify.com/v1/me/player/previous",
+        {
+            method: "POST",
+
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        console.error(
+            "Could not go to previous song:",
+            response.status
+        );
+
+        return;
+    }
+
+    setTimeout(updateSong, 500);
+}
+
+async function togglePlay() {
+
+    const token =
+        localStorage.getItem("spotify_access_token");
+
+    if (!token) return;
+
+    const data = await getCurrentlyPlaying();
+
+    if (!data) return;
+
+    const endpoint = data.is_playing
+        ? "pause"
+        : "play";
+
+    const response = await fetch(
+        `https://api.spotify.com/v1/me/player/${endpoint}`,
+        {
+            method: "PUT",
+
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        console.error(
+            "Could not change playback:",
+            response.status
+        );
+
+        return;
+    }
+
+    setTimeout(updateSong, 200);
+}
+
+
