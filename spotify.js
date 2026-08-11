@@ -243,8 +243,8 @@ async function initializeSpotify() {
 
     if (token) {
         console.log("Existing Spotify token found.");
-        updateLoginButton();
         await getCurrentlyPlaying();
+        updateLoginButton();
 
     } else {
         console.log("Not logged into Spotify yet.");
