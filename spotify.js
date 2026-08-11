@@ -265,6 +265,21 @@ async function updateSong() {
 
     const data = await getCurrentlyPlaying();
 
+    const spotifyPlayer =
+        document.querySelector(".spotify-player");
+
+    // Nothing is playing
+    if (!data || !data.item) {
+
+        spotifyPlayer.style.display = "none";
+
+        return;
+    }
+
+    // Something is playing
+    spotifyPlayer.style.display = "flex";
+
+
     const songName =
         document.getElementById("song-name");
 
@@ -335,7 +350,7 @@ async function updateSong() {
 
 updateSong()
 
-setInterval(updateSong,5000)
+setInterval(updateSong,3000)
 
 // ================================
 // FORMATTING
