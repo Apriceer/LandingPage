@@ -268,18 +268,23 @@ async function updateSong() {
     const spotifyPlayer =
         document.querySelector(".spotify-player");
 
-    // Nothing is playing
+    const spotifyOpenButton =
+        document.getElementById("spotify-open-button");
+
+
     if (!data || !data.item) {
 
         spotifyPlayer.style.display = "none";
+        spotifyOpenButton.style.display = "flex";
 
         return;
     }
 
-    // Something is playing
     spotifyPlayer.style.display = "flex";
+    spotifyOpenButton.style.display = "none";
 
 
+    
     const songName =
         document.getElementById("song-name");
 
@@ -350,7 +355,7 @@ async function updateSong() {
 
 updateSong()
 
-setInterval(updateSong,3000)
+setInterval(updateSong, 3000)
 
 // ================================
 // FORMATTING
