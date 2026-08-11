@@ -548,7 +548,7 @@ async function togglePlay() {
         return;
     }
 
-    setTimeout(updateSong, 200);
+    setTimeout(updateSong, 500);
 }
 
 // ================================
