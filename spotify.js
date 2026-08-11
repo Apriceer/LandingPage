@@ -315,9 +315,6 @@ async function updateSong() {
         data.is_playing;
 
 
-    const playPauseIcon =
-    document.getElementById("play-pause-icon");
-
     // Change play/pause icon
     if (isPlaying) {
 
