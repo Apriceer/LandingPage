@@ -359,6 +359,7 @@ async function updateSong() {
     const spotifyOpenButton =
         document.getElementById("spotify-open-button");
 
+    updateLoginButton();
 
     if (!data || !data.item) {
 
