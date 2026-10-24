@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AETHER-9 | Next-Gen Quantum LLM Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Space+Grotesk:wght@600;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -14,8 +14,7 @@
                     colors: {
                         obsidian: '#030712',
                         cyberCyan: '#00f0ff',
-                        cyberPurple: '#8a2be2',
-                        neonPink: '#ff007f'
+                        cyberRed: '#ff0055'
                     },
                     fontFamily: {
                         sans: ['Space Grotesk', 'sans-serif'],
@@ -30,366 +29,195 @@
             background-color: #030712;
             color: #f3f4f6;
             font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-        }
-        .scanlines {
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0, 240, 255, 0.03) 50%,
-                rgba(0, 240, 255, 0.03)
-            );
-            background-size: 100% 4px;
+            overflow: hidden;
         }
         .cyber-grid {
             background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+                              linear-gradient(to bottom, rgba(255, 0, 85, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
-        .neon-glow-cyan {
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.35);
+
+        /* Giant Pulsing Red Button Glow */
+        .big-red-button {
+            background: linear-gradient(135deg, #ff0055 0%, #dc2626 50%, #991b1b 100%);
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.6), inset 0 4px 12px rgba(255, 255, 255, 0.4);
+            animation: pulseGlow 1.5s infinite ease-in-out;
         }
-        .neon-glow-purple {
-            box-shadow: 0 0 35px rgba(138, 43, 226, 0.45);
+        .big-red-button:hover {
+            box-shadow: 0 0 90px rgba(255, 0, 85, 0.9), inset 0 4px 20px rgba(255, 255, 255, 0.7);
+            transform: scale(1.08) translateY(-4px);
         }
-        .neon-text-cyan {
-            text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.4);
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
         }
-        .neon-text-purple {
-            text-shadow: 0 0 12px rgba(138, 43, 226, 0.8), 0 0 25px rgba(138, 43, 226, 0.4);
-        }
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-8px, 6px) skew(12deg); filter: hue-rotate(90deg) contrast(200%); }
-            40% { transform: translate(-6px, -6px) skew(-12deg); filter: hue-rotate(180deg) contrast(150%); }
-            60% { transform: translate(8px, 6px) skew(8deg); filter: hue-rotate(270deg) contrast(200%); }
-            80% { transform: translate(6px, -6px) skew(-8deg); filter: hue-rotate(45deg) contrast(180%); }
-            100% { transform: translate(0) filter: hue-rotate(0); }
-        }
-        .glitch-active {
-            animation: glitch 0.25s cubic-bezier(.25, .46, .45, .94) both infinite;
-        }
-        @keyframes chaoticBounce {
-            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-            25% { transform: translateY(-40px) rotate(18deg) scale(1.15); }
-            50% { transform: translateY(30px) rotate(-18deg) scale(0.9); }
-            75% { transform: translateY(-20px) rotate(12deg) scale(1.1); }
-        }
-        @keyframes hueShift {
-            0% { filter: hue-rotate(0deg) saturate(2); }
-            50% { filter: hue-rotate(180deg) saturate(3) drop-shadow(0 0 40px #00f0ff); }
-            100% { filter: hue-rotate(360deg) saturate(2); }
-        }
-        .ethan-chaos {
-            animation: chaoticBounce 1.2s ease-in-out infinite, hueShift 1.8s linear infinite;
-        }
+
+        /* Screen Glitch & Shake */
         .shake-screen {
-            animation: screenShake 0.35s ease-in-out infinite;
+            animation: screenShake 0.3s ease-in-out infinite;
         }
         @keyframes screenShake {
             0% { transform: translate(0, 0) rotate(0deg); }
-            20% { transform: translate(-12px, 12px) rotate(-1.5deg); }
-            40% { transform: translate(12px, -12px) rotate(1.5deg); }
-            60% { transform: translate(-6px, 6px) rotate(0deg); }
-            80% { transform: translate(6px, -6px) rotate(-1deg); }
+            20% { transform: translate(-15px, 15px) rotate(-2deg); }
+            40% { transform: translate(15px, -15px) rotate(2deg); }
+            60% { transform: translate(-8px, 8px) rotate(0deg); }
+            80% { transform: translate(8px, -8px) rotate(-1deg); }
             100% { transform: translate(0, 0) rotate(0deg); }
         }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
+
+        /* Ethan Prank Animations */
+        @keyframes chaoticEthan {
+            0% { transform: scale(1) rotate(0deg) translateY(0); filter: hue-rotate(0deg); }
+            25% { transform: scale(1.2) rotate(15deg) translateY(-25px); filter: hue-rotate(90deg); }
+            50% { transform: scale(0.85) rotate(-15deg) translateY(20px); filter: hue-rotate(180deg); }
+            75% { transform: scale(1.15) rotate(10deg) translateY(-15px); filter: hue-rotate(270deg); }
+            100% { transform: scale(1) rotate(0deg) translateY(0); filter: hue-rotate(360deg); }
         }
-        .pulse-cta {
-            animation: pulseGlow 2s infinite ease-in-out;
+        .ethan-chaos {
+            animation: chaoticEthan 1s infinite ease-in-out;
+        }
+
+        @keyframes glitchText {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 3px) skew(10deg); }
+            40% { transform: translate(5px, -3px) skew(-10deg); }
+            60% { transform: translate(-3px, 2px); }
+            80% { transform: translate(3px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .glitch-active {
+            animation: glitchText 0.2s infinite;
         }
     </style>
 </head>
-<body class="cyber-grid scanlines min-h-screen flex flex-col selection:bg-cyberCyan selection:text-obsidian">
+<body class="cyber-grid min-h-screen flex flex-col items-center justify-between p-6 select-none">
 
-    <!-- Top Navigation -->
-    <header class="border-b border-white/10 backdrop-blur-xl bg-obsidian/80 sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
+    <!-- Minimal Futuristic Header -->
+    <header class="w-full max-w-4xl flex items-center justify-between py-4 border-b border-white/10">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyberCyan to-cyberPurple flex items-center justify-center neon-glow-cyan">
-                <span class="font-mono font-bold text-obsidian text-lg">A9</span>
-            </div>
-            <div>
-                <span class="text-xl font-bold tracking-wider text-white">AETHER<span class="text-cyberCyan">-9</span></span>
-                <span class="block text-[10px] font-mono text-cyberCyan/80">QUANTUM NEURAL ENGINE v9.4</span>
-            </div>
+            <div class="w-8 h-8 rounded-lg bg-cyberRed flex items-center justify-center font-mono font-bold text-obsidian">A9</div>
+            <span class="text-lg font-bold tracking-widest text-white">AETHER<span class="text-cyberRed">-9</span></span>
         </div>
-
-        <nav class="hidden md:flex items-center space-x-8 text-sm font-mono text-gray-400">
-            <a href="#hero" class="hover:text-cyberCyan transition-colors">/core</a>
-            <a href="#throughput" class="hover:text-cyberCyan transition-colors">/telemetry</a>
-            <a href="#prompt" class="hover:text-cyberCyan transition-colors">/interface</a>
-            <a href="#status" class="hover:text-cyberCyan transition-colors">/status</a>
-        </nav>
-
-        <div class="flex items-center space-x-4">
-            <div class="hidden sm:flex items-center space-x-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-xs font-mono">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-gray-300">LATENCY:</span>
-                <span class="text-cyberCyan font-bold" id="latency-counter">4.2ms</span>
-            </div>
-            <div class="bg-gradient-to-r from-cyberCyan/20 to-cyberPurple/20 border border-cyberCyan/40 px-4 py-1.5 rounded-xl text-xs font-mono text-cyberCyan">
-                SECURE_MODE: ON
-            </div>
+        <div class="flex items-center space-x-2 text-xs font-mono text-gray-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>STATUS: ONLINE</span>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow flex flex-col items-center justify-center px-4 py-12 relative">
+    <!-- Main Hero: Centered Big Red Button -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center max-w-2xl px-4 relative z-10">
         
-        <!-- Ambient Background Glows -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyberCyan/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute top-2/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyberPurple/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="inline-block px-4 py-1 rounded-full border border-cyberRed/40 bg-cyberRed/10 text-cyberRed text-xs font-mono mb-8">
+            🚨 QUANTUM NEURAL HANDSHAKE REQUIRED
+        </div>
 
-        <!-- Hero Section -->
-        <section id="hero" class="max-w-5xl w-full text-center relative z-10 mb-16">
-            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyberCyan/30 bg-cyberCyan/5 text-cyberCyan text-xs font-mono mb-6 neon-glow-cyan">
-                <span class="animate-ping w-1.5 h-1.5 rounded-full bg-cyberCyan inline-block"></span>
-                <span>NEURAL NEXUS ONLINE • 100 TRILLION PARAMETERS</span>
-            </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
+            INITIALIZE <span class="text-cyberRed">AETHER-9</span> CORE
+        </h1>
+        
+        <p class="text-gray-400 text-sm sm:text-base mb-12 max-w-lg font-mono">
+            Press the button below to establish a direct 100-Trillion parameter neural link.
+        </p>
 
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight">
-                THE NEXT EVOLUTION OF <br>
-                <span class="bg-gradient-to-r from-cyberCyan via-purple-400 to-cyberPurple bg-clip-text text-transparent neon-text-cyan">SYNTHETIC INTELLIGENCE</span>
-            </h1>
-
-            <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 font-sans">
-                AETHER-9 harnesses decentralized quantum sub-routines to deliver instantaneous cognition, multi-modal synthesis, and transcendent logical reasoning.
-            </p>
-
-            <!-- Massive Glowing CTA Button -->
-            <div class="my-8">
-                <button id="continue-btn" class="pulse-cta relative group px-10 py-5 bg-gradient-to-r from-cyberCyan via-indigo-500 to-cyberPurple text-obsidian font-bold text-xl sm:text-2xl rounded-2xl shadow-2xl neon-glow-cyan hover:neon-glow-purple transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer border border-white/20">
-                    <span class="absolute inset-0 w-full h-full bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                    <span class="relative z-10 tracking-widest text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">CLICK HERE TO CONTINUE</span>
-                </button>
-                <p class="text-xs font-mono text-gray-500 mt-3">WARNING: Initiating handshake connects your neural socket directly to AETHER-9 core.</p>
-            </div>
-        </section>
-
-        <!-- Interactive Prompt Interface -->
-        <section id="prompt" class="max-w-4xl w-full mx-auto mb-16">
-            <div class="rounded-3xl backdrop-blur-xl bg-white/[0.02] border border-white/10 p-6 sm:p-8 shadow-2xl neon-glow-purple relative overflow-hidden">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyberCyan to-cyberPurple"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-2">
-                        <span class="w-3 h-3 rounded-full bg-cyberCyan"></span>
-                        <h3 class="font-mono text-sm text-gray-300">AETHER-9 // QUERY_TERMINAL</h3>
-                    </div>
-                    <span class="text-xs font-mono text-cyberCyan/70">STATUS: READY</span>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="relative">
-                        <textarea id="prompt-input" rows="3" class="w-full bg-obsidian/60 border border-white/10 rounded-2xl p-4 text-white font-mono text-sm focus:outline-none focus:border-cyberCyan transition-colors resize-none placeholder-gray-600" placeholder="Ask AETHER-9 anything about the universe, code, or quantum mechanics..."></textarea>
-                    </div>
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center space-x-4 text-xs font-mono text-gray-400">
-                            <span>Tokens: <strong class="text-cyberCyan">128k context</strong></span>
-                            <span>Temp: <strong class="text-cyberPurple">0.7</strong></span>
-                        </div>
-                        <button id="send-prompt-btn" class="w-full sm:w-auto px-6 py-2.5 bg-cyberCyan/10 hover:bg-cyberCyan/25 border border-cyberCyan/40 text-cyberCyan font-mono text-sm rounded-xl transition-all duration-200 cursor-pointer">
-                            EXECUTE QUERY &rarr;
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Simulated Output Box -->
-                <div id="prompt-output" class="hidden mt-6 p-4 rounded-xl bg-obsidian/90 border border-cyberCyan/30 font-mono text-xs text-gray-300 leading-relaxed">
-                    <p class="text-cyberCyan mb-1">&gt; Initializing quantum weights...</p>
-                    <p class="text-purple-400 mb-1">&gt; Synthesizing multidimensional response vectors...</p>
-                    <p class="text-white mt-2" id="output-text">"The architecture of reality is fundamentally computational. AETHER-9 has processed your query across 4,000 parallel dimensions..."</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Simulated Live Neural Network Throughput & Telemetry -->
-        <section id="throughput" class="max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <!-- Card 1 -->
-            <div class="rounded-2xl backdrop-blur-xl bg-white/[0.02] border border-white/10 p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-xs font-mono text-gray-400">TOKEN THROUGHPUT</span>
-                        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">PEAK</span>
-                    </div>
-                    <div class="text-3xl font-bold font-mono text-cyberCyan mb-2">2.4M <span class="text-sm font-sans text-gray-400">tok/s</span></div>
-                </div>
-                <div class="h-16 w-full mt-4 flex items-end space-x-1">
-                    <div class="w-full bg-cyberCyan/20 rounded-t h-[40%]"></div>
-                    <div class="w-full bg-cyberCyan/40 rounded-t h-[70%]"></div>
-                    <div class="w-full bg-cyberCyan/60 rounded-t h-[55%]"></div>
-                    <div class="w-full bg-cyberCyan rounded-t h-[90%]"></div>
-                    <div class="w-full bg-cyberCyan/50 rounded-t h-[65%]"></div>
-                    <div class="w-full bg-cyberCyan/80 rounded-t h-[80%]"></div>
-                    <div class="w-full bg-cyberCyan rounded-t h-[100%]"></div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="rounded-2xl backdrop-blur-xl bg-white/[0.02] border border-white/10 p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-xs font-mono text-gray-400">ACTIVE CLUSTERS</span>
-                        <span class="text-xs font-mono text-cyberPurple bg-cyberPurple/10 px-2 py-0.5 rounded">STABLE</span>
-                    </div>
-                    <div class="text-3xl font-bold font-mono text-purple-400 mb-2">1,024 <span class="text-sm font-sans text-gray-400">nodes</span></div>
-                </div>
-                <div class="h-16 w-full mt-4 flex items-center justify-between text-cyberPurple/60 font-mono text-xs">
-                    <span>[ALPHA_09]</span>
-                    <span class="animate-pulse text-cyberPurple">SYNCING...</span>
-                    <span>[OMEGA_99]</span>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="rounded-2xl backdrop-blur-xl bg-white/[0.02] border border-white/10 p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-xs font-mono text-gray-400">QUANTUM ENTROPY</span>
-                        <span class="text-xs font-mono text-cyberCyan bg-cyberCyan/10 px-2 py-0.5 rounded">OPTIMAL</span>
-                    </div>
-                    <div class="text-3xl font-bold font-mono text-white mb-2">99.98%</div>
-                </div>
-                <div class="w-full bg-white/5 rounded-full h-2 mt-4 overflow-hidden">
-                    <div class="bg-gradient-to-r from-cyberCyan to-cyberPurple h-full w-[99.98%]"></div>
-                </div>
-            </div>
-        </section>
+        <!-- THE MASSIVE FUNNY BIG RED BUTTON -->
+        <button id="big-red-btn" class="big-red-button cursor-pointer text-white font-black text-2xl sm:text-4xl px-10 py-8 sm:px-16 sm:py-12 rounded-3xl border-4 border-white/30 transition-all duration-200 active:scale-90 flex flex-col items-center justify-center gap-2 group">
+            <span class="tracking-wider drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">CLICK HERE TO CONTINUE</span>
+            <span class="text-xs font-mono font-normal opacity-80 text-white group-hover:underline">(DO NOT PRESS IF AFRAID)</span>
+        </button>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-6 text-center text-xs font-mono text-gray-500">
-        &copy; 2026 AETHER-9 Quantum Systems Inc. All rights reserved. Mainframe secure.
+    <!-- Simple Footer -->
+    <footer class="text-xs font-mono text-gray-600 py-4">
+        &copy; 2026 AETHER-9 AI Inc. All rights reserved.
     </footer>
 
     <!-- PRANK MODAL (Initially Hidden) -->
     <div id="prank-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300">
         
-        <!-- Cyberpunk Warning Flash Overlay -->
-        <div class="absolute inset-0 border-4 border-red-500/50 pointer-events-none animate-pulse"></div>
+        <!-- Flashing Warning Border -->
+        <div class="absolute inset-0 border-8 border-cyberRed/60 pointer-events-none animate-pulse"></div>
 
-        <!-- Modal Box -->
-        <div class="relative max-w-xl w-full rounded-3xl backdrop-blur-2xl bg-obsidian/95 border-2 border-cyberCyan/80 p-8 shadow-[0_0_50px_rgba(0,240,255,0.4)] text-center overflow-hidden">
+        <!-- Modal Card -->
+        <div class="relative max-w-lg w-full rounded-3xl bg-obsidian border-2 border-cyberRed p-8 shadow-[0_0_80px_rgba(255,0,85,0.5)] text-center overflow-hidden">
             
-            <!-- Neon background glows inside modal -->
-            <div class="absolute -top-24 -left-24 w-48 h-48 bg-cyberCyan/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-neonPink/20 rounded-full blur-3xl pointer-events-none"></div>
-
-            <!-- Glitch Warning Badge -->
-            <div class="inline-block px-4 py-1 rounded-full bg-red-500/20 border border-red-500/50 text-red-400 font-mono text-xs mb-4 animate-bounce">
-                ⚠️ CRITICAL SYSTEM OVERRIDE ⚠️
+            <div class="inline-block px-4 py-1 rounded-full bg-cyberRed/20 text-cyberRed font-mono text-xs font-bold mb-4 animate-bounce">
+                ⚠️ MAINFRAME OVERRIDE DETECTED ⚠️
             </div>
 
-            <!-- Main Taunting Title -->
-            <h2 class="text-4xl sm:text-5xl font-extrabold tracking-wider text-white mb-2 glitch-active neon-text-cyan">
+            <!-- Glitch Title -->
+            <h2 class="text-4xl sm:text-5xl font-black text-white mb-2 glitch-active tracking-wider text-cyberRed">
                 HACKED BY ETHAN
             </h2>
 
-            <p class="text-cyberCyan font-mono text-sm sm:text-base mb-6">
+            <p class="text-gray-300 font-mono text-sm sm:text-base mb-6">
                 Did you really think this LLM was real?<br>
-                <span class="text-purple-400 font-bold">Your mainframe now belongs to Ethan.</span>
+                <span class="text-cyberRed font-bold">Your system now belongs to Ethan.</span>
             </p>
 
-            <!-- Ethan Image Container with Chaotic Animations -->
-            <div class="my-6 relative flex justify-center items-center py-4">
-                <div class="absolute w-48 h-48 rounded-full border-2 border-dashed border-cyberCyan animate-spin pointer-events-none"></div>
-                <div class="absolute w-56 h-56 rounded-full border border-purple-500/40 animate-ping pointer-events-none"></div>
+            <!-- Chaotic Ethan Image Container -->
+            <div class="my-6 relative flex justify-center items-center py-2">
+                <div class="absolute w-44 h-44 rounded-full border-4 border-dashed border-cyberCyan animate-spin"></div>
                 
-                <!-- ethan.png with chaos animation -->
-                <div class="relative z-10 p-3 rounded-2xl bg-gradient-to-tr from-cyberCyan/30 to-cyberPurple/30 border border-cyberCyan neon-glow-cyan ethan-chaos">
-                    <img src="ethan.png" onerror="this.src='https://placehold.co/220x220/8a2be2/ffffff?text=ETHAN+👑';" alt="Ethan" class="w-40 h-40 sm:w-48 sm:h-48 object-cover rounded-xl shadow-2xl">
-                    <span class="absolute -top-3 -right-3 bg-neonPink text-white font-mono text-xs px-2.5 py-1 rounded-full shadow-lg animate-pulse">👑 SUPREME LEADER</span>
+                <div class="relative z-10 p-2 rounded-2xl bg-cyberRed/20 border-2 border-cyberRed ethan-chaos">
+                    <img src="ethan.png" onerror="this.src='https://placehold.co/200x200/ff0055/ffffff?text=ETHAN+👑';" alt="Ethan" class="w-36 h-36 sm:w-44 sm:h-44 object-cover rounded-xl shadow-2xl">
+                    <span class="absolute -top-3 -right-3 bg-cyberCyan text-obsidian font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-lg">👑 LEADER</span>
                 </div>
             </div>
 
-            <!-- Animated Subtitles & Taunts -->
-            <div class="space-y-2 mb-8 font-mono text-xs text-gray-300">
-                <p class="text-cyberCyan animate-pulse">⚡ Downloading all LLM weights to Ethan's personal laptop...</p>
-                <p class="text-purple-400">🎮 Enjoy the snack break while Ethan takes over the server room.</p>
-            </div>
+            <p class="text-xs font-mono text-gray-400 mb-8 animate-pulse">
+                ⚡ Downloading all user files directly to Ethan's laptop...
+            </p>
 
-            <!-- Modal Action Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button id="panic-btn" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white font-mono font-bold text-sm rounded-xl shadow-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer border border-red-400/50">
-                    🚨 PANIC BUTTON (DO NOT CLICK)
-                </button>
-                <button id="close-modal-btn" class="w-full sm:w-auto px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-gray-300 font-mono text-sm rounded-xl transition-all cursor-pointer">
-                    Acknowledge Defeat
+            <!-- Trolling Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[60px]" id="button-container">
+                <button id="panic-btn" class="w-full sm:w-auto px-6 py-3 bg-cyberRed text-white font-mono font-bold text-xs sm:text-sm rounded-xl shadow-lg border border-white/20 transition-all duration-150 cursor-pointer">
+                    🚨 PANIC / CLOSE
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript Handler -->
+    <!-- JavaScript Handlers -->
     <script>
-        // Interactive Prompt Simulation
-        const sendBtn = document.getElementById('send-prompt-btn');
-        const promptInput = document.getElementById('prompt-input');
-        const promptOutput = document.getElementById('prompt-output');
-        const outputText = document.getElementById('output-text');
-
-        sendBtn.addEventListener('click', () => {
-            const query = promptInput.value.trim();
-            if (!query) {
-                promptInput.placeholder = "Please enter a query first!";
-                setTimeout(() => promptInput.placeholder = "Ask AETHER-9 anything about the universe, code, or quantum mechanics...", 2000);
-                return;
-            }
-            promptOutput.classList.remove('hidden');
-            outputText.innerHTML = `<span class="text-cyberCyan">Query received:</span> "${query}"<br><br><strong>AETHER-9:</strong> Quantum neural analysis complete. The answer is obvious: Ethan rules the mainframe. All queries automatically route to Ethan's desktop.`;
-        });
-
-        // Prank Trigger Logic
-        const continueBtn = document.getElementById('continue-btn');
+        const bigRedBtn = document.getElementById('big-red-btn');
         const prankModal = document.getElementById('prank-modal');
         const panicBtn = document.getElementById('panic-btn');
-        const closeModalBtn = document.getElementById('close-modal-btn');
         const bodyEl = document.body;
 
-        continueBtn.addEventListener('click', () => {
-            // Trigger screen shake and glitch
+        // Big Red Button Trigger
+        bigRedBtn.addEventListener('click', () => {
             bodyEl.classList.add('shake-screen');
             
-            // Show modal after brief dramatic pause
             setTimeout(() => {
                 prankModal.classList.remove('hidden');
                 setTimeout(() => {
                     prankModal.classList.remove('opacity-0');
                 }, 10);
-            }, 300);
+            }, 200);
         });
 
-        // Panic Button - makes modal/image shake wildly or jump
-        panicBtn.addEventListener('click', () => {
-            const modalBox = prankModal.querySelector('div.relative');
-            modalBox.style.transform = `translate(${Math.random()*40 - 20}px, ${Math.random()*40 - 20}px) rotate(${Math.random()*10 - 5}deg)`;
-            panicBtn.innerText = "🚨 ETHAN SAYS NICE TRY! 🚨";
-            setTimeout(() => {
-                modalBox.style.transform = 'translate(0, 0) rotate(0deg)';
-            }, 500);
-        });
+        // Trolling Panic Button Logic (Jumps around & dodges/shakes)
+        const panicTaunts = [
+            "🚨 NO ESCAPE!",
+            "🚨 ETHAN SAYS NO!",
+            "🚨 NICE TRY!",
+            "🚨 MAINFRAME LOCKED!",
+            "🚨 TOO SLOW!"
+        ];
 
-        // Close / Acknowledge defeat button
-        closeModalBtn.addEventListener('click', () => {
-            prankModal.classList.add('opacity-0');
-            bodyEl.classList.remove('shake-screen');
-            setTimeout(() => {
-                prankModal.classList.add('hidden');
-                // Reset panic button text
-                panicBtn.innerText = "🚨 PANIC BUTTON (DO NOT CLICK)";
-            }, 300);
-        });
+        function dodgePanicBtn() {
+            const randomX = (Math.random() - 0.5) * 200;
+            const randomY = (Math.random() - 0.5) * 120;
+            const randomTaunt = panicTaunts[Math.floor(Math.random() * panicTaunts.length)];
+            
+            panicBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.1) rotate(${(Math.random() - 0.5) * 20}deg)`;
+            panicBtn.innerText = randomTaunt;
+        }
 
-        // Live Latency fluctuation simulation
-        setInterval(() => {
-            const latencyEl = document.getElementById('latency-counter');
-            const randomLatency = (Math.random() * 2 + 3.5).toFixed(1);
-            latencyEl.innerText = randomLatency + 'ms';
-        }, 2000);
+        panicBtn.addEventListener('mouseenter', dodgePanicBtn);
+        panicBtn.addEventListener('click', dodgePanicBtn);
     </script>
 </body>
 </html>
