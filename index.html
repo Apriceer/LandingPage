@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AETHER-9 | Next-Gen Quantum LLM Platform</title>
+    <title>FOR APRICEER'S EYES ONLY | CLASSIFIED</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Space+Grotesk:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=JetBrains+Mono:wght@700;800;900&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        obsidian: '#030712',
-                        cyberCyan: '#00f0ff',
-                        cyberRed: '#ff0055'
+                        obsidian: '#020202',
+                        bloodRed: '#8b0000',
+                        crimsonGlow: '#ff0033',
+                        neonGreen: '#00ff66',
+                        neonCyan: '#00f0ff',
+                        neonMagenta: '#ff00aa',
+                        toxicYellow: '#ffe600'
                     },
                     fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
+                        horror: ['Creepster', 'cursive'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        tech: ['Share Tech Mono', 'monospace'],
+                        arcade: ['VT323', 'monospace']
                     }
                 }
             }
@@ -26,153 +32,390 @@
     </script>
     <style>
         body {
-            background-color: #030712;
-            color: #f3f4f6;
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: #000000;
+            color: #e5e7eb;
+            font-family: 'Share Tech Mono', monospace;
             overflow: hidden;
         }
-        .cyber-grid {
-            background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 0, 85, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+
+        /* Atmospheric Dark Vignette */
+        .ominous-vignette {
+            background: radial-gradient(circle at center, rgba(30, 0, 0, 0.4) 0%, rgba(10, 0, 0, 0.85) 60%, #000000 100%);
         }
 
-        /* Giant Pulsing Red Button Glow */
-        .big-red-button {
-            background: linear-gradient(135deg, #ff0055 0%, #dc2626 50%, #991b1b 100%);
-            box-shadow: 0 0 50px rgba(255, 0, 85, 0.6), inset 0 4px 12px rgba(255, 255, 255, 0.4);
-            animation: pulseGlow 1.5s infinite ease-in-out;
-        }
-        .big-red-button:hover {
-            box-shadow: 0 0 90px rgba(255, 0, 85, 0.9), inset 0 4px 20px rgba(255, 255, 255, 0.7);
-            transform: scale(1.08) translateY(-4px);
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
+        /* Flickering Crimson Lighting Overlay */
+        .flicker-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(139, 0, 0, 0.03);
+            pointer-events: none;
+            z-index: 2;
+            animation: lightFlicker 4s infinite ease-in-out;
         }
 
-        /* Screen Glitch & Shake */
-        .shake-screen {
-            animation: screenShake 0.3s ease-in-out infinite;
-        }
-        @keyframes screenShake {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            20% { transform: translate(-15px, 15px) rotate(-2deg); }
-            40% { transform: translate(15px, -15px) rotate(2deg); }
-            60% { transform: translate(-8px, 8px) rotate(0deg); }
-            80% { transform: translate(8px, -8px) rotate(-1deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
+        @keyframes lightFlicker {
+            0%, 100% { opacity: 0.2; }
+            10% { opacity: 0.8; }
+            12% { opacity: 0.1; }
+            20% { opacity: 0.5; }
+            40% { opacity: 0.15; }
+            42% { opacity: 0.9; }
+            43% { opacity: 0.2; }
+            70% { opacity: 0.4; }
+            85% { opacity: 0.1; }
+            87% { opacity: 0.7; }
         }
 
-        /* Ethan Prank Animations */
-        @keyframes chaoticEthan {
-            0% { transform: scale(1) rotate(0deg) translateY(0); filter: hue-rotate(0deg); }
-            25% { transform: scale(1.2) rotate(15deg) translateY(-25px); filter: hue-rotate(90deg); }
-            50% { transform: scale(0.85) rotate(-15deg) translateY(20px); filter: hue-rotate(180deg); }
-            75% { transform: scale(1.15) rotate(10deg) translateY(-15px); filter: hue-rotate(270deg); }
-            100% { transform: scale(1) rotate(0deg) translateY(0); filter: hue-rotate(360deg); }
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.7) 50%,
+                rgba(0, 0, 0, 0.7)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
         }
-        .ethan-chaos {
-            animation: chaoticEthan 1s infinite ease-in-out;
+
+        /* Menacing Red Button */
+        .blood-button {
+            background: radial-gradient(circle at center, #8b0000 0%, #4a0000 70%, #1a0000 100%);
+            box-shadow: 0 0 60px rgba(139, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 2px rgba(255, 0, 50, 0.8);
+            border: 3px solid rgba(255, 0, 50, 0.4);
+            animation: pulseBlood 2.5s infinite ease-in-out;
+            text-shadow: 0 0 12px rgba(255, 0, 50, 0.9), 0 0 2px #000;
+        }
+
+        .blood-button:hover {
+            box-shadow: 0 0 100px rgba(255, 0, 50, 0.9), inset 0 0 30px rgba(139, 0, 0, 0.8), 0 0 10px rgba(255, 0, 50, 1);
+            border-color: rgba(255, 0, 50, 0.9);
+            transform: scale(1.06) translateY(-2px);
+        }
+
+        @keyframes pulseBlood {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(139, 0, 0, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.9); }
+            50% { transform: scale(1.04); box-shadow: 0 0 90px rgba(255, 0, 50, 0.85), inset 0 0 10px rgba(80, 0, 0, 0.5); }
+        }
+
+        /* Glitch Text */
+        .glitch-crimson {
+            position: relative;
+            color: #ff0033;
+            text-shadow: 0 0 20px rgba(255, 0, 50, 0.8), 0 0 40px rgba(139, 0, 0, 0.9);
+            animation: glitchText 1.8s infinite;
         }
 
         @keyframes glitchText {
-            0% { transform: translate(0); }
-            20% { transform: translate(-5px, 3px) skew(10deg); }
-            40% { transform: translate(5px, -3px) skew(-10deg); }
-            60% { transform: translate(-3px, 2px); }
-            80% { transform: translate(3px, -2px); }
-            100% { transform: translate(0); }
+            0%, 100% { transform: translate(0); text-shadow: 0 0 15px rgba(255,0,50,0.8); }
+            15% { transform: translate(-3px, 2px) skew(-2deg); text-shadow: -3px 0 #8b0000, 3px 0 #000; }
+            17% { transform: translate(3px, -2px) skew(3deg); text-shadow: 3px 0 #ff0033, -3px 0 #8b0000; }
+            30% { transform: translate(0); }
+            65% { transform: translate(-2px, -1px); text-shadow: -2px 0 #ff0033; }
+            67% { transform: translate(2px, 1px); text-shadow: 2px 0 #000; }
+            80% { transform: translate(0); }
         }
-        .glitch-active {
-            animation: glitchText 0.2s infinite;
+
+        /* Intense Screen Shake on Trigger */
+        .shake-screen {
+            animation: screenShake 0.25s ease-in-out infinite;
+        }
+        @keyframes screenShake {
+            0% { transform: translate(0, 0) rotate(0deg); filter: invert(0%); }
+            20% { transform: translate(-22px, 22px) rotate(-4deg); filter: invert(30%); }
+            40% { transform: translate(22px, -22px) rotate(4deg); filter: invert(70%); }
+            60% { transform: translate(-15px, 15px) rotate(-2deg); filter: invert(0%); }
+            80% { transform: translate(15px, -15px) rotate(3deg); filter: invert(40%); }
+            100% { transform: translate(0, 0) rotate(0deg); filter: invert(0%); }
+        }
+
+        /* Background Fog Canvas */
+        #fog-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.55;
+        }
+
+        /* ----------------------------------------------------
+           ULTRA CHAOTIC ETHAN PRANK ANIMATIONS & STYLES
+        ---------------------------------------------------- */
+        
+        /* Matrix Matrix Rain Canvas */
+        #matrix-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.35;
+            z-index: 0;
+        }
+
+        /* Rainbow Hue Cycle */
+        .rainbow-hue {
+            animation: hueCycle 1.2s linear infinite;
+        }
+        @keyframes hueCycle {
+            0% { filter: hue-rotate(0deg) contrast(180%); }
+            100% { filter: hue-rotate(360deg) contrast(180%); }
+        }
+
+        /* Hyper Glitch Title Effect */
+        .hyper-glitch {
+            position: relative;
+            display: inline-block;
+            animation: hyperGlitchAnim 0.15s infinite;
+            font-family: 'VT323', monospace;
+        }
+        @keyframes hyperGlitchAnim {
+            0% { transform: translate(0, 0) skew(0deg); text-shadow: 4px 4px #ff00aa, -4px -4px #00f0ff; }
+            20% { transform: translate(-8px, 5px) skew(15deg); text-shadow: -6px 2px #00ff66, 6px -2px #ff0033; }
+            40% { transform: translate(8px, -5px) skew(-15deg); text-shadow: 6px -4px #ffe600, -6px 4px #ff00aa; }
+            60% { transform: translate(-5px, -3px) skew(5deg); text-shadow: -4px -4px #00f0ff, 4px 4px #00ff66; }
+            80% { transform: translate(5px, 4px) skew(-5deg); text-shadow: 5px 3px #ff0033, -5px -3px #ffe600; }
+            100% { transform: translate(0, 0) skew(0deg); text-shadow: 4px 4px #ff00aa, -4px -4px #00f0ff; }
+        }
+
+        /* Spinning Neon Cyber Border */
+        .neon-spin-border {
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 170, 0.8), inset 0 0 30px rgba(0, 240, 255, 0.5);
+            animation: borderPulse 0.8s infinite alternate ease-in-out;
+        }
+        @keyframes borderPulse {
+            0% { border-color: #ff00aa; box-shadow: 0 0 40px #ff00aa, inset 0 0 20px #00f0ff; }
+            50% { border-color: #00f0ff; box-shadow: 0 0 80px #00f0ff, inset 0 0 40px #00ff66; }
+            100% { border-color: #ffe600; box-shadow: 0 0 60px #ffe600, inset 0 0 30px #ff0033; }
+        }
+
+        /* Chaotic Ethan Portrait Overlord Animation */
+        .ethan-supreme-chaos {
+            animation: supremeEthan 0.6s infinite ease-in-out alternate;
+        }
+        @keyframes supremeEthan {
+            0% { transform: scale(1) rotate(-8deg) translateY(0); filter: drop-shadow(0 0 25px #ff00aa) hue-rotate(0deg); }
+            25% { transform: scale(1.25) rotate(12deg) translateY(-20px); filter: drop-shadow(0 0 40px #00f0ff) hue-rotate(90deg) invert(20%); }
+            50% { transform: scale(0.9) rotate(-15deg) translateY(15px); filter: drop-shadow(0 0 30px #00ff66) hue-rotate(180deg); }
+            75% { transform: scale(1.2) rotate(10deg) translateY(-10px); filter: drop-shadow(0 0 50px #ffe600) hue-rotate(270deg); }
+            100% { transform: scale(1.05) rotate(-5deg) translateY(0); filter: drop-shadow(0 0 35px #ff0033) hue-rotate(360deg); }
+        }
+
+        /* Floating Rotating Crown & Icons */
+        .floating-crown {
+            animation: floatCrown 1s infinite ease-in-out alternate;
+        }
+        @keyframes floatCrown {
+            0% { transform: translateY(-15px) scale(1) rotate(-10deg); }
+            100% { transform: translateY(5px) scale(1.3) rotate(15deg); }
+        }
+
+        /* Siren Strobe Overlay */
+        .strobe-siren {
+            animation: sirenStrobe 0.2s infinite;
+        }
+        @keyframes sirenStrobe {
+            0%, 100% { background-color: rgba(255, 0, 85, 0.25); }
+            50% { background-color: rgba(0, 240, 255, 0.25); }
+        }
+
+        /* Floating Toast Popups Animation */
+        .toast-popup {
+            animation: toastPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes toastPop {
+            0% { opacity: 0; transform: scale(0.3) translateY(50px) rotate(-10deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+        }
+
+        /* Cursor Spawned Mini Ethans */
+        .mini-ethan {
+            position: fixed;
+            pointer-events: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #ff00aa;
+            z-index: 100;
+            animation: miniEthanFly 1.2s forwards ease-out;
+            box-shadow: 0 0 20px #00f0ff;
+        }
+        @keyframes miniEthanFly {
+            0% { opacity: 1; transform: scale(0.5) rotate(0deg); }
+            50% { transform: scale(1.5) translate((Math.random() - 0.5) * 100px, -60px) rotate(180deg); }
+            100% { opacity: 0; transform: scale(2) translateY(-120px) rotate(360deg); }
+        }
+
+        /* Progress Bar Striped Glow Animation */
+        .progress-striped {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.3) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.3) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+            animation: progressMove 0.5s linear infinite;
+        }
+        @keyframes progressMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1rem 0; }
         }
     </style>
 </head>
-<body class="cyber-grid min-h-screen flex flex-col items-center justify-between p-6 select-none">
+<body class="ominous-vignette min-h-screen flex flex-col items-center justify-between p-6 select-none bg-black relative">
 
-    <!-- Minimal Futuristic Header -->
-    <header class="w-full max-w-4xl flex items-center justify-between py-4 border-b border-white/10">
+    <!-- Atmospheric Dark Fog Particle Canvas -->
+    <canvas id="fog-canvas"></canvas>
+
+    <!-- Crimson Flicker & Scanlines -->
+    <div class="flicker-overlay"></div>
+    <div class="fixed inset-0 scanlines z-10"></div>
+
+    <!-- Siren Strobe Visual Overlay (Activated during prank) -->
+    <div id="siren-overlay" class="fixed inset-0 pointer-events-none z-30 hidden"></div>
+
+    <!-- Toast Popup Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Menacing Top Bar -->
+    <header class="w-full max-w-5xl flex items-center justify-between py-4 border-b border-red-950/60 relative z-20">
         <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-cyberRed flex items-center justify-center font-mono font-bold text-obsidian">A9</div>
-            <span class="text-lg font-bold tracking-widest text-white">AETHER<span class="text-cyberRed">-9</span></span>
+            <span class="text-xl animate-pulse">🩸</span>
+            <span class="text-xs sm:text-sm font-mono tracking-widest text-red-700/90 font-bold uppercase">
+                CLASSIFIED // TERMINAL_892
+            </span>
         </div>
-        <div class="flex items-center space-x-2 text-xs font-mono text-gray-400">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>STATUS: ONLINE</span>
-        </div>
+
+        <!-- Ambient Dark Sound Toggle -->
+        <button id="audio-toggle" class="flex items-center space-x-2 px-3 py-1.5 rounded border border-red-900/40 bg-red-950/20 text-red-500 hover:border-red-600 text-xs font-mono transition-all">
+            <span id="audio-icon">🔇</span>
+            <span id="audio-label">AUDIO FX: OFF</span>
+        </button>
     </header>
 
-    <!-- Main Hero: Centered Big Red Button -->
-    <main class="flex-grow flex flex-col items-center justify-center text-center max-w-2xl px-4 relative z-10">
+    <!-- Main Hero Screen -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center max-w-3xl px-4 relative z-20 my-auto">
         
-        <div class="inline-block px-4 py-1 rounded-full border border-cyberRed/40 bg-cyberRed/10 text-cyberRed text-xs font-mono mb-8">
-            🚨 QUANTUM NEURAL HANDSHAKE REQUIRED
+        <!-- Confidential Warning Tag -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm border border-red-900/80 bg-red-950/40 text-red-500 text-xs font-mono mb-8 tracking-[0.25em] uppercase animate-pulse shadow-[0_0_15px_rgba(139,0,0,0.5)]">
+            <span>💀</span>
+            <span>CONFIDENTIAL - TOP SECRET - CLASSIFIED</span>
+            <span>💀</span>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
-            INITIALIZE <span class="text-cyberRed">AETHER-9</span> CORE
+        <!-- Ominous Heading -->
+        <h1 class="text-3xl sm:text-6xl font-extrabold mb-6 tracking-tight font-mono glitch-crimson uppercase leading-tight">
+            FOR APRICEER'S EYES ONLY....
         </h1>
         
-        <p class="text-gray-400 text-sm sm:text-base mb-12 max-w-lg font-mono">
-            Press the button below to establish a direct 100-Trillion parameter neural link.
+        <!-- Menacing Warning Subtext -->
+        <p class="text-red-700/80 text-xs sm:text-sm mb-12 max-w-xl font-mono tracking-[0.2em] uppercase leading-relaxed">
+            WARNING: UNAUTHORIZED ACCESS WILL TRIGGER TOTAL MAINFRAME PURGE. DO NOT PROCEED UNLESS ASSIGNED LEVEL-5 CLEARANCE.
         </p>
 
-        <!-- THE MASSIVE FUNNY BIG RED BUTTON -->
-        <button id="big-red-btn" class="big-red-button cursor-pointer text-white font-black text-2xl sm:text-4xl px-10 py-8 sm:px-16 sm:py-12 rounded-3xl border-4 border-white/30 transition-all duration-200 active:scale-90 flex flex-col items-center justify-center gap-2 group">
-            <span class="tracking-wider drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">CLICK HERE TO CONTINUE</span>
-            <span class="text-xs font-mono font-normal opacity-80 text-white group-hover:underline">(DO NOT PRESS IF AFRAID)</span>
+        <!-- MASSIVE MENACING PULSING RED BUTTON -->
+        <button id="big-red-btn" class="blood-button cursor-pointer text-white font-black text-2xl sm:text-4xl px-10 py-8 sm:px-16 sm:py-12 rounded-2xl transition-all duration-200 active:scale-95 flex flex-col items-center justify-center gap-3 group relative overflow-hidden">
+            <div class="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            
+            <span class="tracking-widest uppercase font-mono font-bold text-red-100 group-hover:text-white">
+                ENTER IF YOU DARE
+            </span>
+            <span class="text-xs font-mono font-normal tracking-widest text-red-400/90 uppercase group-hover:text-red-300">
+                Press if you dare
+            </span>
         </button>
 
     </main>
 
-    <!-- Simple Footer -->
-    <footer class="text-xs font-mono text-gray-600 py-4">
-        &copy; 2026 AETHER-9 AI Inc. All rights reserved.
+    <!-- Ominous Footer -->
+    <footer class="text-[10px] sm:text-xs font-mono text-red-950 py-4 tracking-[0.3em] uppercase relative z-20">
+        SYSTEM ACCESS RESTRICTED // SUBJECT TO SURVEILLANCE
     </footer>
 
-    <!-- PRANK MODAL (Initially Hidden) -->
-    <div id="prank-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300">
+    <!-- ULTRA-CHAOTIC ETHAN PRANK MODAL -->
+    <div id="prank-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300 overflow-hidden">
         
-        <!-- Flashing Warning Border -->
-        <div class="absolute inset-0 border-8 border-cyberRed/60 pointer-events-none animate-pulse"></div>
+        <!-- Matrix Code Rain Canvas -->
+        <canvas id="matrix-canvas"></canvas>
 
-        <!-- Modal Card -->
-        <div class="relative max-w-lg w-full rounded-3xl bg-obsidian border-2 border-cyberRed p-8 shadow-[0_0_80px_rgba(255,0,85,0.5)] text-center overflow-hidden">
+        <!-- Flashing Neon Warning Border -->
+        <div class="absolute inset-0 border-[12px] border-neonMagenta pointer-events-none rainbow-hue z-10"></div>
+
+        <!-- Floating Badge Tickers -->
+        <div class="absolute top-4 left-0 right-0 z-20 flex justify-around opacity-80 pointer-events-none font-mono text-[10px] sm:text-xs text-neonCyan font-bold tracking-widest animate-pulse">
+            <span class="bg-black/80 px-3 py-1 border border-neonMagenta rounded">⚠️ MAXIMUM THREAT LEVEL ⚠️</span>
+            <span class="bg-black/80 px-3 py-1 border border-neonGreen rounded hidden sm:inline">💻 ETHAN WAS HERE 💻</span>
+            <span class="bg-black/80 px-3 py-1 border border-toxicYellow rounded">👑 CHIEF SYSTEM OVERLORD 👑</span>
+        </div>
+
+        <!-- Main Modal Card -->
+        <div class="relative max-w-xl w-full rounded-3xl bg-black/95 border-4 border-neonMagenta p-6 sm:p-8 neon-spin-border text-center overflow-hidden z-20 my-auto shadow-2xl">
             
-            <div class="inline-block px-4 py-1 rounded-full bg-cyberRed/20 text-cyberRed font-mono text-xs font-bold mb-4 animate-bounce">
-                ⚠️ MAINFRAME OVERRIDE DETECTED ⚠️
+            <!-- Warning Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-950/80 text-neonGreen font-mono text-xs font-extrabold mb-3 animate-bounce border-2 border-neonGreen shadow-[0_0_20px_#00ff66]">
+                <span class="animate-spin">⚡</span>
+                <span>SYSTEM OVERRIDE IN PROGRESS</span>
+                <span class="animate-spin">⚡</span>
             </div>
 
-            <!-- Glitch Title -->
-            <h2 class="text-4xl sm:text-5xl font-black text-white mb-2 glitch-active tracking-wider text-cyberRed">
-                HACKED BY ETHAN
-            </h2>
+            <!-- Hyper Glitch Title -->
+            <div class="my-2">
+                <h2 class="text-4xl sm:text-6xl font-black text-white hyper-glitch tracking-wider uppercase">
+                    HACKED BY ETHAN
+                </h2>
+            </div>
 
-            <p class="text-gray-300 font-mono text-sm sm:text-base mb-6">
-                Did you really think this LLM was real?<br>
-                <span class="text-cyberRed font-bold">Your system now belongs to Ethan.</span>
+            <p class="text-gray-200 font-mono text-xs sm:text-sm my-3 leading-relaxed">
+                Did you really think this LLM terminal was real?<br>
+                <span class="text-neonCyan font-black text-base sm:text-lg tracking-wider animate-pulse">
+                    YOUR COMPUTER NOW BELONGS TO ETHAN.
+                </span>
             </p>
 
-            <!-- Chaotic Ethan Image Container -->
-            <div class="my-6 relative flex justify-center items-center py-2">
-                <div class="absolute w-44 h-44 rounded-full border-4 border-dashed border-cyberCyan animate-spin"></div>
+            <!-- Ethan Portrait Section -->
+            <div class="my-5 relative flex justify-center items-center py-2">
+                <!-- Dynamic Aura Rings -->
+                <div class="absolute w-52 h-52 rounded-full border-4 border-dashed border-neonCyan animate-spin"></div>
+                <div class="absolute w-60 h-60 rounded-full border-2 border-dotted border-neonMagenta rainbow-hue"></div>
                 
-                <div class="relative z-10 p-2 rounded-2xl bg-cyberRed/20 border-2 border-cyberRed ethan-chaos">
-                    <img src="ethan.png" onerror="this.src='https://placehold.co/200x200/ff0055/ffffff?text=ETHAN+👑';" alt="Ethan" class="w-36 h-36 sm:w-44 sm:h-44 object-cover rounded-xl shadow-2xl">
-                    <span class="absolute -top-3 -right-3 bg-cyberCyan text-obsidian font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-lg">👑 LEADER</span>
+                <!-- Floating Crown -->
+                <div class="absolute -top-6 z-30 floating-crown">
+                    <span class="text-5xl drop-shadow-[0_0_15px_#ffe600]">👑</span>
+                </div>
+
+                <!-- Portrait Holder -->
+                <div class="relative z-10 p-2.5 rounded-3xl bg-black border-4 border-neonGreen ethan-supreme-chaos shadow-2xl">
+                    <img src="ethan.png" onerror="this.src='https://placehold.co/220x220/ff0055/ffffff?text=ETHAN+👑';" alt="Ethan" class="w-36 h-36 sm:w-44 sm:h-44 object-cover rounded-2xl shadow-2xl">
+                    <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-toxicYellow text-black font-mono font-black text-[10px] sm:text-xs px-3 py-0.5 rounded-full shadow-xl border border-black uppercase tracking-widest whitespace-nowrap">
+                        SYSTEM OVERLORD
+                    </span>
                 </div>
             </div>
 
-            <p class="text-xs font-mono text-gray-400 mb-8 animate-pulse">
-                ⚡ Downloading all user files directly to Ethan's laptop...
+            <!-- Fake Exfiltration Progress Bar -->
+            <div class="w-full bg-gray-900 rounded-full h-6 p-1 border border-neonCyan/50 my-4 relative overflow-hidden shadow-inner">
+                <div id="exfil-bar" class="bg-gradient-to-r from-neonMagenta via-neonCyan to-neonGreen h-full rounded-full w-0 transition-all duration-100 progress-striped"></div>
+                <span id="exfil-text" class="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-black text-white drop-shadow-[0_1px_2px_#000]">
+                    EXFILTRATING COOKIES TO ETHAN: 0%
+                </span>
+            </div>
+
+            <p class="text-[11px] font-mono text-neonCyan mb-6 animate-pulse">
+                ⚡ ALL FILES, MEMORIES, & PASSPORTS SENT TO ETHAN'S SUPERCOMPUTER ⚡
             </p>
 
             <!-- Trolling Action Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[60px]" id="button-container">
-                <button id="panic-btn" class="w-full sm:w-auto px-6 py-3 bg-cyberRed text-white font-mono font-bold text-xs sm:text-sm rounded-xl shadow-lg border border-white/20 transition-all duration-150 cursor-pointer">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative min-h-[70px]" id="button-container">
+                <button id="panic-btn" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-red-600 to-neonMagenta text-white font-mono font-black text-xs sm:text-sm rounded-2xl shadow-2xl border-2 border-white/40 transition-all duration-100 cursor-pointer uppercase tracking-wider relative z-30">
                     🚨 PANIC / CLOSE
                 </button>
             </div>
@@ -184,40 +427,280 @@
         const bigRedBtn = document.getElementById('big-red-btn');
         const prankModal = document.getElementById('prank-modal');
         const panicBtn = document.getElementById('panic-btn');
+        const sirenOverlay = document.getElementById('siren-overlay');
+        const toastContainer = document.getElementById('toast-container');
+        const exfilBar = document.getElementById('exfil-bar');
+        const exfilText = document.getElementById('exfil-text');
         const bodyEl = document.body;
+
+        let audioCtx = null;
+        let isAudioPlaying = false;
 
         // Big Red Button Trigger
         bigRedBtn.addEventListener('click', () => {
             bodyEl.classList.add('shake-screen');
+            sirenOverlay.classList.remove('hidden');
+            sirenOverlay.classList.add('strobe-siren');
             
+            playGlitchChiptune();
+
             setTimeout(() => {
                 prankModal.classList.remove('hidden');
                 setTimeout(() => {
                     prankModal.classList.remove('opacity-0');
+                    startMatrixRain();
+                    startProgressExfil();
+                    startToastSpammer();
                 }, 10);
-            }, 200);
+            }, 300);
         });
 
-        // Trolling Panic Button Logic (Jumps around & dodges/shakes)
+        /* ----------------------------------------------------
+           Fake Progress Bar (0% to 1000%)
+        ---------------------------------------------------- */
+        function startProgressExfil() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 25) + 5;
+                if (progress > 1000) {
+                    progress = 1000;
+                    clearInterval(interval);
+                    exfilText.innerText = `EXFILTRATION COMPLETE: 1000% (ALL COOKIES BELONG TO ETHAN)`;
+                } else {
+                    exfilText.innerText = `EXFILTRATING COOKIES TO ETHAN: ${progress}%`;
+                }
+                exfilBar.style.width = Math.min((progress / 1000) * 100, 100) + '%';
+            }, 120);
+        }
+
+        /* ----------------------------------------------------
+           Floating Meme Toast Spammer
+        ---------------------------------------------------- */
+        const memeToasts = [
+            "🚨 ACCESS DENIED: ETHAN RULES HERE!",
+            "👑 Ethan has logged into your account!",
+            "🍪 Cookies successfully delivered to Ethan!",
+            "💻 Deleting System32... (Just kidding!)",
+            "👀 Ethan is watching through your webcam!",
+            "⚡ All passwords set to 'EthanIsKing'!",
+            "🔥 MAXIMUM OVERDrive Activated!"
+        ];
+
+        function spawnToast() {
+            if (prankModal.classList.contains('hidden')) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-popup px-4 py-2.5 rounded-xl bg-black/90 border-2 border-neonGreen text-neonGreen font-mono text-xs font-bold shadow-[0_0_20px_#00ff66] flex items-center gap-2 max-w-xs';
+            toast.innerText = memeToasts[Math.floor(Math.random() * memeToasts.length)];
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function startToastSpammer() {
+            spawnToast();
+            setInterval(() => {
+                if (Math.random() > 0.3) spawnToast();
+            }, 1800);
+        }
+
+        /* ----------------------------------------------------
+           Evasive Panic Button & Mini-Ethan Spawner
+        ---------------------------------------------------- */
         const panicTaunts = [
             "🚨 NO ESCAPE!",
             "🚨 ETHAN SAYS NO!",
             "🚨 NICE TRY!",
             "🚨 MAINFRAME LOCKED!",
-            "🚨 TOO SLOW!"
+            "🚨 TOO SLOW!",
+            "🚨 ETHAN IS INEVITABLE!",
+            "🚨 DENIED BY ETHAN!"
         ];
 
-        function dodgePanicBtn() {
-            const randomX = (Math.random() - 0.5) * 200;
-            const randomY = (Math.random() - 0.5) * 120;
+        function spawnMiniEthan(x, y) {
+            const mini = document.createElement('img');
+            mini.src = 'ethan.png';
+            mini.onerror = () => mini.src = 'https://placehold.co/100x100/ff00aa/ffffff?text=ETHAN';
+            mini.className = 'mini-ethan';
+            mini.style.left = (x - 24) + 'px';
+            mini.style.top = (y - 24) + 'px';
+            document.body.appendChild(mini);
+
+            setTimeout(() => mini.remove(), 1200);
+        }
+
+        function dodgePanicBtn(e) {
+            const randomX = (Math.random() - 0.5) * 260;
+            const randomY = (Math.random() - 0.5) * 160;
             const randomTaunt = panicTaunts[Math.floor(Math.random() * panicTaunts.length)];
             
-            panicBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.1) rotate(${(Math.random() - 0.5) * 20}deg)`;
+            panicBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.15) rotate(${(Math.random() - 0.5) * 25}deg)`;
             panicBtn.innerText = randomTaunt;
+
+            // Spawn mini floating Ethans near cursor/button
+            const clientX = e.clientX || window.innerWidth / 2;
+            const clientY = e.clientY || window.innerHeight / 2;
+            spawnMiniEthan(clientX, clientY);
+
+            playGlitchChiptune();
         }
 
         panicBtn.addEventListener('mouseenter', dodgePanicBtn);
         panicBtn.addEventListener('click', dodgePanicBtn);
+
+        /* ----------------------------------------------------
+           Matrix Code Rain Canvas in Prank Modal
+        ---------------------------------------------------- */
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const mCtx = matrixCanvas.getContext('2d');
+
+        function resizeMatrixCanvas() {
+            matrixCanvas.width = matrixCanvas.parentElement.clientWidth;
+            matrixCanvas.height = matrixCanvas.parentElement.clientHeight;
+        }
+
+        const chars = 'ETHAN101010101001ETHAN👑OVERLORD';
+        let drops = [];
+
+        function startMatrixRain() {
+            resizeMatrixCanvas();
+            const columns = Math.floor(matrixCanvas.width / 16);
+            drops = Array.from({ length: columns }, () => Math.floor(Math.random() * -20));
+            animateMatrix();
+        }
+
+        function animateMatrix() {
+            if (prankModal.classList.contains('hidden')) return;
+
+            mCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+            mCtx.fillStyle = '#00ff66';
+            mCtx.font = '14px JetBrains Mono';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                mCtx.fillText(text, i * 16, drops[i] * 16);
+
+                if (drops[i] * 16 > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            requestAnimationFrame(animateMatrix);
+        }
+
+        /* ----------------------------------------------------
+           Floating Fog Background Canvas
+        ---------------------------------------------------- */
+        const fogCanvas = document.getElementById('fog-canvas');
+        const fCtx = fogCanvas.getContext('2d');
+
+        function resizeFogCanvas() {
+            fogCanvas.width = window.innerWidth;
+            fogCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeFogCanvas();
+            resizeMatrixCanvas();
+        });
+        resizeFogCanvas();
+
+        class FogParticle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * fogCanvas.width;
+                this.y = Math.random() * fogCanvas.height;
+                this.radius = Math.random() * 150 + 100;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.alpha = Math.random() * 0.3 + 0.1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x - this.radius > fogCanvas.width || this.x + this.radius < 0 ||
+                    this.y - this.radius > fogCanvas.height || this.y + this.radius < 0) {
+                    this.reset();
+                }
+            }
+            draw() {
+                const gradient = fCtx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                gradient.addColorStop(0, `rgba(100, 0, 15, ${this.alpha})`);
+                gradient.addColorStop(0.5, `rgba(30, 0, 5, ${this.alpha * 0.5})`);
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                fCtx.fillStyle = gradient;
+                fCtx.beginPath();
+                fCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                fCtx.fill();
+            }
+        }
+
+        const fogParticles = Array.from({ length: 25 }, () => new FogParticle());
+
+        function animateFog() {
+            fCtx.clearRect(0, 0, fogCanvas.width, fogCanvas.height);
+            fogParticles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateFog);
+        }
+        animateFog();
+
+        /* ----------------------------------------------------
+           Synthesized Web Audio Glitch Chiptune Generator
+        ---------------------------------------------------- */
+        const audioBtn = document.getElementById('audio-toggle');
+        const audioIcon = document.getElementById('audio-icon');
+        const audioLabel = document.getElementById('audio-label');
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playGlitchChiptune() {
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                const notes = [220, 440, 880, 1760, 3520, 110, 55];
+                notes.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+
+                        osc.type = index % 2 === 0 ? 'sawtooth' : 'square';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(freq * 0.5, audioCtx.currentTime + 0.1);
+
+                        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.1);
+                    }, index * 40);
+                });
+            } catch (e) {}
+        }
+
+        audioBtn.addEventListener('click', () => {
+            initAudio();
+            isAudioPlaying = !isAudioPlaying;
+            audioIcon.innerText = isAudioPlaying ? "🔊" : "🔇";
+            audioLabel.innerText = isAudioPlaying ? "AUDIO FX: ON" : "AUDIO FX: OFF";
+            if (isAudioPlaying) playGlitchChiptune();
+        });
     </script>
 </body>
 </html>
